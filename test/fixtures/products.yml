@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: 1
+  discount_percent: 1.5
+  inventory_qty: 1
+  units: MyString
+  name: MyString
+  brand: MyString
+  description: MyString
+  price: 1.5
+  category: one
+
+two:
+  sku: 1
+  discount_percent: 1.5
+  inventory_qty: 1
+  units: MyString
+  name: MyString
+  brand: MyString
+  description: MyString
+  price: 1.5
+  category: two

@@ -1,0 +1,15 @@
+nav {
+  display: block;
+  font-size: 25px;
+  padding: 15px;
+  text-align: center;
+}
+
+a {
+  padding: 15px;
+  color: black;
+}
+
+a.active {
+  font-weight: 600;
+}
