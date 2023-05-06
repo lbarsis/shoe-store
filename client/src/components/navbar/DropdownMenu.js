@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import { NavLink, useNavigate } from 'react-router-dom';
-import '../../styles/DropdownMenu.css';
+import '../../styles/NavbarStyles/DropdownMenu.css';
 
 function DropdownMenu() {
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ function DropdownMenu() {
       {isOpen && user && (
         <ul className="dropdown-menu-items">
           <li onClick={handleMenuToggle}>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout} className='logout-button'>Logout</button>
           </li>
         </ul>
       )}

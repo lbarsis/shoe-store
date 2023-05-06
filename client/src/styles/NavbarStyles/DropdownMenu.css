@@ -1,6 +1,7 @@
 .dropdown-menu {
   position: relative;
   display: inline-block;
+  z-index: 1000;
 }
 
 .dropdown-toggle {
@@ -26,10 +27,6 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -54,4 +51,22 @@
 .active-link {
   color: #007bff;
   font-weight: bold;
+}
+
+.logout-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #0069d9;
 }

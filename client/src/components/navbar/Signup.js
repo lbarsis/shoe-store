@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/userContext';
-import '../styles/SignupForm.css'
+import { UserContext } from '../../context/userContext';
+import '../../styles/NavbarStyles/SignupForm.css'
 
 
 function Signup() {

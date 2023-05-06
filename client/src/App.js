@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/navbar/Navbar';
 import Home from './components/Home';
-import Signup from './components/Signup';
-import Login from './components/Login'
+import Signup from './components/navbar/Signup';
+import Login from './components/navbar/Login'
 import { UserProvider } from './context/userContext';
 import { ErrorsProvider } from './context/errorsContext';
 import Shop from './components/shop/Shop';

@@ -10,6 +10,7 @@ a {
   color: black;
 }
 
-a.active {
-  font-weight: 600;
+a:hover {
+  color: #007bff;
 }
+

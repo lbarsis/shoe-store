@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import DropdownMenu from './DropdownMenu';
-import '../../styles/Navbar.css'
+import '../../styles/NavbarStyles/Navbar.css'
 
 function Navbar() {
   return (
