@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/HomeStyles/HomeBanner.css'
 import { NavLink } from 'react-router-dom';
+import '../../styles/HomeStyles/HomeBanner.css'
 
-function Home() {
+function Banner() {
   return (
     <div className="banner">
       <div className="bubble-container">
@@ -23,4 +23,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Banner;
