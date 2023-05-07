@@ -10,6 +10,8 @@ import Shop from './components/shop/Shop';
 import Sale from './components/sale/Sale';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
+import { ProductProvider } from './context/productContext';
+// import Footer from './components/footer/Footer';
 
 
 function App() {
@@ -17,18 +19,21 @@ function App() {
   return (
     <div className="App">
       <ErrorsProvider>
-          <UserProvider>
-              <Navbar />
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/shop' element={<Shop />} />
-                <Route path='/sale' element={<Sale />} />
-                <Route path='/about' element={<About />} />
-                <Route path='/contact' element={<Contact />} />
-              </Routes>
-          </UserProvider>
+        <UserProvider>
+          <ProductProvider>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/shop' element={<Shop />} />
+              <Route path='/sale' element={<Sale />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/contact' element={<Contact />} />
+            </Routes>
+            {/* <Footer /> */}
+          </ProductProvider>
+        </UserProvider>
       </ErrorsProvider>
     </div>
   );

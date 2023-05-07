@@ -14,7 +14,7 @@ function Banner() {
         <div className="bubble"></div>
       </div>
       <div className="banner-content">
-        <h1>Welcome to Our Website</h1>
+        <h1>Welcome to Steppers</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         {/* <a href="#" className="button">Learn More</a> */}
         <NavLink to='/about' className='button'>Learn More</NavLink>
