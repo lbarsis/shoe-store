@@ -11,12 +11,9 @@ function ProductSideScroll() {
   })
 
   return (
-    <div>
-      <h1>Sale</h1>
-      <div className="card-slider-container">
-        <div className="card-slider">
-          {displayProducts}
-        </div>
+    <div className="card-slider-container">
+      <div className="card-slider">
+        {displayProducts}
       </div>
     </div>
   );

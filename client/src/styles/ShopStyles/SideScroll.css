@@ -2,7 +2,6 @@
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
-  overflow-x: hidden;
 }
 
 .card-slider {
@@ -11,10 +10,6 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-}
-
-.card-slider::-webkit-scrollbar {
-  display: none;
 }
 
 .card {
@@ -57,7 +52,7 @@
 .card-button:hover {
   background-color: #444;
 }
-
+/* 
 .card-slider-container::before,
 .card-slider-container::after {
   content: '';
@@ -73,7 +68,7 @@
 
 .card-slider-container::before {
   left: 0;
-  background-image: url('../../../public/assets/images/shop/sidescroll/left-arrow.svg');
+  background-image: url('../../../../app/assets/images/shop/sidescroll/left-arrow.svg');
   background-repeat: no-repeat;
   background-size: 20px;
   background-position: center;
@@ -81,7 +76,7 @@
 
 .card-slider-container::after {
   right: 0;
-  background-image: url('../../../public/assets/images/shop/sidescroll/right-arrow.svg');
+  background-image: url('../../../../app/assets/images/shop/sidescroll/right-arrow.svg');
   background-repeat: no-repeat;
   background-size: 20px;
   background-position: center;
@@ -94,11 +89,9 @@
 
 .card-slider-container:hover::before {
   left: 10px;
-  cursor: pointer;
 }
 
 .card-slider-container:hover::after {
   right: 10px;
-  cursor: pointer;
 }
-
+ */
