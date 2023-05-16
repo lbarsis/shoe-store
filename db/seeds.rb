@@ -52,3 +52,43 @@ User.create!(
     billing_address: Faker::Address.full_address
   )
 end
+
+
+
+# Carts
+users = User.all
+5.times do
+  Cart.create(user: users.sample)
+end
+
+# CartProducts
+carts = Cart.all
+products = Product.all
+10.times do
+  CartProduct.create(
+    cart: carts.sample,
+    product: products.sample,
+    quantity: Faker::Number.between(from: 1, to: 5)
+  )
+end
+
+# Orders
+users = User.all
+10.times do
+  Order.create(
+    total: Faker::Commerce.price(range: 10.0..999.99),
+    shipping_address: Faker::Address.full_address,
+    billing_address: Faker::Address.full_address,
+    user: users.sample
+  )
+end
+
+# OrderProducts
+orders = Order.all
+10.times do
+  OrderProduct.create(
+    order: orders.sample,
+    product: products.sample,
+    quantity: Faker::Number.between(from: 1, to: 5)
+  )
+end
