@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_021644) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_001636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_021644) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "product_categories", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.integer "sku"
     t.float "discount_percent"
@@ -67,11 +76,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_021644) do
     t.string "brand"
     t.string "description"
     t.float "price"
-    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
-    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -92,5 +99,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_021644) do
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "products", "categories"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
 end

@@ -25,7 +25,6 @@ end
     brand: Faker::Company.name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
     price: Faker::Commerce.price(range: 10..100),
-    category: Category.all.sample,
     image_url: "/assets/images/home/#{images.sample}"
   )
 end
@@ -52,8 +51,6 @@ User.create!(
     billing_address: Faker::Address.full_address
   )
 end
-
-
 
 # Carts
 users = User.all
@@ -90,5 +87,15 @@ orders = Order.all
     order: orders.sample,
     product: products.sample,
     quantity: Faker::Number.between(from: 1, to: 5)
+  )
+end
+
+categories = Category.all
+10.times do
+  ProductCategory.create(
+    category: categories.sample,
+    product: products.sample,
+    created_at: Faker::Time.between(from: DateTime.now - 30, to: DateTime.now),
+    updated_at: Faker::Time.between(from: DateTime.now - 30, to: DateTime.now)
   )
 end

@@ -1,4 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :fname, :email, :cart_products
-  # has_one :cart
+  attributes :fname, :email
+  has_one :cart, Serializer: CartSerializer
 end
