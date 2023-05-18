@@ -5,4 +5,5 @@ class User < ApplicationRecord
 
   has_one :cart
   has_many :cart_products, through: :cart
+
 end
