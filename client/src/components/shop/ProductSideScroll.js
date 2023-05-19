@@ -7,7 +7,7 @@ function ProductSideScroll() {
   const { products } = useContext(ProductContext)
 
   const displayProducts = products?.map(product => {
-    return <ProductCard key={product.id} product={product} />
+    return <ProductCard key={product.sku} product={product} />
   })
 
   return (

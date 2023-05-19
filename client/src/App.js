@@ -11,6 +11,7 @@ import Sale from './components/sale/Sale';
 import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import { ProductProvider } from './context/productContext';
+import Cart from './components/cart/Cart';
 // import Footer from './components/footer/Footer';
 
 
@@ -26,6 +27,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path='/cart' element={<Cart />} />
               <Route path='/shop' element={<Shop />} />
               <Route path='/sale' element={<Sale />} />
               <Route path='/about' element={<About />} />

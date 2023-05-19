@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # skip_before_action :authorize, only: [:create, :index]
+  skip_before_action :authorize, only: [:create, :index]
   def index
     users = User.all
     render json: users
@@ -13,6 +13,12 @@ class UsersController < ApplicationController
 
   def show
     render json: @current_user
+  end
+
+  def cart
+    cart = @current_user.cart_products
+    # cart_products = cart
+    render json: cart, status: :ok
   end
 
   private

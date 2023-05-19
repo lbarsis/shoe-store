@@ -33,13 +33,16 @@ function DropdownMenu() {
             <NavLink to='/login' className="active-link">Login</NavLink>
           </li>
           <li onClick={handleMenuToggle}>
-            <NavLink to='/Signup' className="active-link">Signup</NavLink>
+            <NavLink to='/signup' className="active-link">Signup</NavLink>
           </li>
         </ul>
       )}
 
       {isOpen && user && (
         <ul className="dropdown-menu-items">
+          <li onClick={handleMenuToggle}>
+            <NavLink to='/cart' className="active-link">Cart</NavLink>
+          </li>
           <li onClick={handleMenuToggle}>
             <button onClick={handleLogout} className='logout-button'>Logout</button>
           </li>
