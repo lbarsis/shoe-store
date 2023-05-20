@@ -15,12 +15,6 @@ class UsersController < ApplicationController
     render json: @current_user
   end
 
-  def cart
-    cart = @current_user.cart_products
-    # cart_products = cart
-    render json: cart, status: :ok
-  end
-
   private
 
   def user_params

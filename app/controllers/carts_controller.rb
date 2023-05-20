@@ -1,7 +1,11 @@
 class CartsController < ApplicationController
-  skip_before_action :authorize, only: [:show]
+  # skip_before_action :authorize, only: [:show, :my_cart]
   def show
-    user = User.find(params[:user_id])
-    render json: user.cart_products, status: :ok
+    render json: @current_user.cart, status: :ok
+  end
+  
+  def my_cart
+    cart = @current_user.cart
+    render json: cart, status: :ok
   end
 end

@@ -5,17 +5,17 @@ const CartContext = createContext(null)
 
 const CartProvider = ({ children }) => {
   // const {user} = useContext(UserContext)
-  const [cartProducts, setCartProducts] = useState(null);
+  const [cartProducts, setCartProducts] = useState([]);
+  console.log(cartProducts)
 
   useEffect(() => {
-    fetch("/users/cart").then((r) => {
+    fetch("/my-cart").then((r) => {
       // console.log(r)
       if (r.ok) {
         r.json().then((products) => setCartProducts(products));
       } 
     });
   }, []);
-
 
   return (
     <CartContext.Provider value={ {cartProducts, setCartProducts} }>
