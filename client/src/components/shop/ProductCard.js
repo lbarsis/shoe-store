@@ -1,27 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../context/cartContext';
-import { UserContext } from '../../context/userContext';
 
 function ProductCard({ product }) {
-  const { user } = useContext(UserContext)
-  const { cartProducts } = useContext(CartContext)
+  const { cart, handleAddCartItem } = useContext(CartContext);
+  const [productQuantity, setProductQuantity] = useState(0);
+
+  // console.log(product)
+
+  useEffect(() => {
+    const foundProduct = cart.cart_products?.find(
+      (cartProduct) => cartProduct?.product?.id === product.id
+    );
+    if (foundProduct) {
+      setProductQuantity(foundProduct.quantity);
+    } else {
+      setProductQuantity(0);
+    }
+  }, [cart, product.id]);
 
   function addItemToCart() {
     fetch('/cart_products', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         cart_product: {
           quantity: 1,
           product_id: product.id,
-        }
-      })
-    })
-    .then(r => {
+        },
+      }),
+    }).then((r) => {
       if (r.ok) {
-        r.json().then(addedProduct => console.log(addedProduct))
+        r.json().then((addedProduct) => {
+          handleAddCartItem(addedProduct)
+          setProductQuantity(productQuantity => productQuantity + 1)
+        });
       }
-    })
+    });
   }
 
   return (
@@ -29,8 +43,20 @@ function ProductCard({ product }) {
       <img src={product.image_url} alt="Poduct" className="card-image" />
       <div className="card-content">
         <h2 className="card-title">{product.name}</h2>
-        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa iaculis, a dictum ipsum finibus. Duis auctor enim in elementum suscipit. </p>
-        <button onClick={addItemToCart} className="card-button">Add to Cart</button>
+        <p className="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa
+          iaculis, a dictum ipsum finibus. Duis auctor enim in elementum
+          suscipit.
+        </p>
+        <button onClick={addItemToCart} className="card-button">
+          Add to Cart
+        </button>
+        <div className="button-bar">
+          <button className="qty-adjust-button">-</button>
+          <p className="qty-count">{productQuantity}</p>
+          <button className="qty-adjust-button">+</button>
+        </div>
       </div>
     </div>
   );

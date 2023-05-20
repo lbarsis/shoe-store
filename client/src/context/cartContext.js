@@ -5,20 +5,26 @@ const CartContext = createContext(null)
 
 const CartProvider = ({ children }) => {
   // const {user} = useContext(UserContext)
-  const [cartProducts, setCartProducts] = useState([]);
-  console.log(cartProducts)
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     fetch("/my-cart").then((r) => {
       // console.log(r)
       if (r.ok) {
-        r.json().then((products) => setCartProducts(products));
+        r.json().then((products) => setCart(products));
       } 
     });
   }, []);
 
+  function handleAddCartItem (addedItem) {
+    setCart({
+      ...cart,
+      cart_products: [...cart.cart_products, addedItem]
+    })
+  }
+
   return (
-    <CartContext.Provider value={ {cartProducts, setCartProducts} }>
+    <CartContext.Provider value={ {cart, setCart, handleAddCartItem} }>
       {children}
     </CartContext.Provider>
   )
