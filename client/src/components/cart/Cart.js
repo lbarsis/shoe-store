@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../../styles/CartStyles/Cart.css'
+import { CartContext } from '../../context/cartContext';
+import CartPoduct from './CartProduct'
 // import { UserContext } from '../../context/userContext';
 
 function Cart() {
-  // const {user} = useContext(UserContext)
+  const {cart} = useContext(CartContext)
+
+  const displayCartItems = cart.cart_products?.map(cartProduct => {
+    return <CartPoduct key={cartProduct.sku} cartProduct={cartProduct} />
+  })
 
   return (
     <div>
       <div className="cart-items">
         <h2>Items in Cart</h2>
         <ul>
-          <li>
-            <img src='example.jpg' alt='example'/>
-              <h3>Item name</h3>
-              <p>Item Price</p>
-              <p>Item Quantity</p>
-          </li>
+          {displayCartItems}
         </ul>
       </div>
       <div className="cart-summary">
