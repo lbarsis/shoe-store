@@ -6,6 +6,16 @@ images = Dir.entries(Rails.root.join('client', 'public', 'assets', 'images', 'ho
   File.file?(Rails.root.join('client', 'public', 'assets', 'images', 'home', file)) && /\.(png|jpe?g|gif)$/i.match?(file)
 end
 
+admin = User.create!(
+  fname: 'admin',
+  lname: '',
+  email: 'admin@abc.com',
+  password: 'password',
+  is_admin: true,
+  shipping_address: Faker::Address.full_address,
+  billing_address: Faker::Address.full_address
+)
+
 # Seed the database with category data
 5.times do
   Category.create!(

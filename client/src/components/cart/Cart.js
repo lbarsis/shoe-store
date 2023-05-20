@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../styles/CartStyles/Cart.css'
-import { UserContext } from '../../context/userContext';
+// import { UserContext } from '../../context/userContext';
 
 function Cart() {
-  const {user} = useContext(UserContext)
+  // const {user} = useContext(UserContext)
 
   return (
     <div>

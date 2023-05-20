@@ -12,6 +12,7 @@ import About from './components/about/About';
 import Contact from './components/contact/Contact';
 import { ProductProvider } from './context/productContext';
 import Cart from './components/cart/Cart';
+import { CartProvider } from './context/cartContext';
 // import Footer from './components/footer/Footer';
 
 
@@ -21,20 +22,22 @@ function App() {
     <div className="App">
       <ErrorsProvider>
         <UserProvider>
-          <ProductProvider>
-            <Navbar />
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/cart' element={<Cart />} />
-              <Route path='/shop' element={<Shop />} />
-              <Route path='/sale' element={<Sale />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/contact' element={<Contact />} />
-            </Routes>
-            {/* <Footer /> */}
-          </ProductProvider>
+          <CartProvider>
+            <ProductProvider>
+              <Navbar />
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route path='/shop' element={<Shop />} />
+                <Route path='/sale' element={<Sale />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/contact' element={<Contact />} />
+              </Routes>
+              {/* <Footer /> */}
+            </ProductProvider>
+          </CartProvider>
         </UserProvider>
       </ErrorsProvider>
     </div>
