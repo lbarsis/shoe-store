@@ -33,7 +33,7 @@ function ProductCard({ product }) {
         r.json().then((addedProduct) => {
           // console.log(cart)
           handleAddCartItem(addedProduct)
-          setProductQuantity(productQuantity => productQuantity + 1)
+          // setProductQuantity(productQuantity => productQuantity + 1)
         });
       }
     });

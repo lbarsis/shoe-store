@@ -14,18 +14,51 @@ const CartProvider = ({ children }) => {
       if (r.ok) {
         r.json().then((cart) => {
           setCart(cart)
-          // setProductQuantity(productQuantity => productQuantity + 1)
+          setProductQuantity(productQuantity => productQuantity + 1)
         });
       } 
     });
   }, []);
 
-  function handleAddCartItem (addedItem) {
-    setCart({
-      ...cart,
-      cart_products: [...cart.cart_products, addedItem]
-    })
+  // function handleAddCartItem (addedItem) {
+  //   setCart({
+  //     ...cart,
+  //     cart_products: [...cart.cart_products, addedItem]
+  //   })
+  // }
+
+  function handleAddCartItem(addedItem) {
+    setCart((prevCart) => {
+      const existingProducts = prevCart.cart_products;
+      const isProductInCart = existingProducts.some(
+        (cartProduct) => cartProduct.product.id === addedItem.product.id
+      );
+  
+      if (!isProductInCart) {
+        return {
+          ...prevCart,
+          cart_products: [...existingProducts, addedItem],
+        };
+      } else {
+        const updatedProducts = existingProducts.map((cartProduct) => {
+          if (cartProduct.product.id === addedItem.product.id) {
+            return {
+              ...cartProduct,
+              quantity: cartProduct.quantity + 1,
+            };
+          }
+          return cartProduct;
+        });
+  
+        return {
+          ...prevCart,
+          cart_products: updatedProducts,
+        };
+      }
+    });
   }
+  
+  
 
   return (
     <CartContext.Provider value={ {cart, setCart, handleAddCartItem, productQuantity, setProductQuantity} }>
