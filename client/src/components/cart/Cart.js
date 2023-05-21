@@ -7,7 +7,7 @@ import CartPoduct from './CartProduct'
 function Cart() {
   const {cart} = useContext(CartContext)
 
-  const displayCartItems = cart.cart_products?.map(cartProduct => {
+  const displayCartItems = cart?.cart_products?.map(cartProduct => {
     return <CartPoduct key={cartProduct.sku} cartProduct={cartProduct} />
   })
 

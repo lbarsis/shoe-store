@@ -15,6 +15,7 @@ admin = User.create!(
   shipping_address: Faker::Address.full_address,
   billing_address: Faker::Address.full_address
 )
+adminCart = Cart.create(user: admin)
 
 # Seed the database with category data
 5.times do

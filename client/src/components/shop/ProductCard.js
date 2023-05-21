@@ -5,7 +5,7 @@ function ProductCard({ product }) {
   const { cart, handleAddCartItem } = useContext(CartContext);
   const [productQuantity, setProductQuantity] = useState(0);
 
-  // console.log(product)
+  // console.log(cart)
 
   useEffect(() => {
     const foundProduct = cart.cart_products?.find(
@@ -31,6 +31,7 @@ function ProductCard({ product }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((addedProduct) => {
+          // console.log(cart)
           handleAddCartItem(addedProduct)
           setProductQuantity(productQuantity => productQuantity + 1)
         });
