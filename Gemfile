@@ -7,6 +7,10 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 
 gem 'faker', '~> 3.2'
 
+gem 'stripe'
+
+gem 'stripe-rails'
+
 gem "image_processing", ">= 1.2"
 
 gem 'active_model_serializers'

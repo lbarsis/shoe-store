@@ -27,7 +27,7 @@ class CartProductsController < ApplicationController
 
     if existing_product
       # If the product already exists in the cart, update the quantity instead of creating a duplicate
-      existing_product.update(quantity: existing_product.quantity + quantity.to_i)
+      existing_product.update(quantity: existing_product.quantity + 1)
       render json: existing_product, status: :ok
     else
       product = Product.find_by(id: product_id)

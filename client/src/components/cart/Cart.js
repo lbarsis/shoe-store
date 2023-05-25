@@ -24,6 +24,7 @@ function Cart() {
         <p>Total Items: ??</p>
         <p>Total Price: ??</p>
       </div>
+      <button>Checkout</button>
     </div>
   );
 }
