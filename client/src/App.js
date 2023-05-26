@@ -13,6 +13,7 @@ import Contact from './components/contact/Contact';
 import { ProductProvider } from './context/productContext';
 import Cart from './components/cart/Cart';
 import { CartProvider } from './context/cartContext';
+import AddProduct from './components/admin/AddProduct';
 // import Footer from './components/footer/Footer';
 
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/shop' element={<Shop />} />
                 <Route path='/sale' element={<Sale />} />
+                <Route path='/add-product' element={<AddProduct />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
               </Routes>
