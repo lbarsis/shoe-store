@@ -6,17 +6,6 @@ images = Dir.entries(Rails.root.join('client', 'public', 'assets', 'images', 'ho
   File.file?(Rails.root.join('client', 'public', 'assets', 'images', 'home', file)) && /\.(png|jpe?g|gif)$/i.match?(file)
 end
 
-admin = User.create!(
-  fname: 'admin',
-  lname: '',
-  email: 'admin@abc.com',
-  password: 'password',
-  is_admin: true,
-  shipping_address: Faker::Address.full_address,
-  billing_address: Faker::Address.full_address
-)
-adminCart = Cart.create(user: admin)
-
 # Seed the database with category data
 5.times do
   Category.create!(
@@ -27,15 +16,27 @@ end
 
 # Seed the database with product data
 10.times do
+  stripe_product = Stripe::Product.create({
+    name: Faker::Commerce.product_name,
+    default_price_data: {
+      unit_amount: rand(1000..100000),
+      currency: 'usd'
+    }
+  })
+  # product = Product.new(product_params)
+  # product.default_price = stripe_product.default_price
+  # product.save
+  # render json: product, status: :created
+
   Product.create!(
     sku: Faker::Number.unique.number(digits: 6),
     discount_percent: Faker::Number.between(from: 0, to: 50),
     inventory_qty: Faker::Number.between(from: 0, to: 100),
     units: Faker::Measurement.metric_weight,
-    name: Faker::Commerce.product_name,
+    name: stripe_product.name,
     brand: Faker::Company.name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
-    price: Faker::Commerce.price(range: 10..100),
+    price: Stripe::Price.retrieve(stripe_product.default_price).unit_amount,
     image_url: "/assets/images/home/#{images.sample}"
   )
 end
