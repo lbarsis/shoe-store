@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 
 function AddProduct() {
-  const { user, handleAddNewItinerary } = useContext(UserContext);
   const [formData, setFormData] = useState({
     sku: '',
     discount_percent: '',
@@ -19,13 +18,6 @@ function AddProduct() {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
-
-  function handleRideChange(rides) {
-    setFormData({
-      ...formData,
-      ride_ids: rides.map(ride => ride.value)
     })
   }
 
