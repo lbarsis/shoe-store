@@ -6,7 +6,7 @@ function CartProduct({cartProduct}) {
     <li key={cartProduct.id}>
       <img src={cartProduct.product?.image_url} alt='example' />
       <h3>{cartProduct.product?.name}</h3>
-      <p>Price: ${cartProduct.product?.price}</p>
+      <p>Price: ${cartProduct.product?.price/100}</p>
       <p>Quantity: {cartProduct.quantity}</p>
     </li>
   );

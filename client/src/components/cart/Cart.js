@@ -21,8 +21,8 @@ function Cart() {
       </div>
       <div className="cart-summary">
         <h2>Cart Summary</h2>
-        <p>Total Items: ??</p>
-        <p>Total Price: ??</p>
+        <p>Total Items: {cart.cart_total_items}</p>
+        <p>Total Price: {cart.cart_total_price}</p>
       </div>
       <button>Checkout</button>
     </div>

@@ -16,9 +16,11 @@ const CartProvider = ({ children }) => {
           setCart(cart)
           setProductQuantity(productQuantity => productQuantity + 1)
         });
-      } 
+      }
     });
   }, []);
+
+  console.log(cart)
 
   // function handleAddCartItem (addedItem) {
   //   setCart({
@@ -33,39 +35,43 @@ const CartProvider = ({ children }) => {
       const isProductInCart = existingProducts.some(
         (cartProduct) => cartProduct.product.id === addedItem.product.id
       );
-  
+
       if (!isProductInCart) {
         return {
           ...prevCart,
           cart_products: [...existingProducts, addedItem],
+          cart_total_price: prevCart.cart_total_price + addedItem.product.price/100,
+          cart_total_items: prevCart.cart_total_items + 1
         };
       } else {
         const updatedProducts = existingProducts.map((cartProduct) => {
           if (cartProduct.product.id === addedItem.product.id) {
             return {
               ...cartProduct,
-              quantity: cartProduct.quantity + 1,
+              quantity: cartProduct.quantity + 1
             };
           }
           return cartProduct;
         });
-  
+
         return {
           ...prevCart,
           cart_products: updatedProducts,
+          cart_total_price: prevCart.cart_total_price + addedItem.product.price/100,
+          cart_total_items: prevCart.cart_total_items + 1
         };
       }
     });
   }
-  
-  
+
+
 
   return (
-    <CartContext.Provider value={ {cart, setCart, handleAddCartItem, productQuantity, setProductQuantity} }>
+    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, productQuantity, setProductQuantity }}>
       {children}
     </CartContext.Provider>
   )
 
 }
 
-export {CartContext, CartProvider};
+export { CartContext, CartProvider };
