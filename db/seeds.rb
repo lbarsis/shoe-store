@@ -37,7 +37,8 @@ end
     brand: Faker::Company.name,
     description: Faker::Lorem.paragraph(sentence_count: 3),
     price: Stripe::Price.retrieve(stripe_product.default_price).unit_amount,
-    image_url: "/assets/images/home/#{images.sample}"
+    image_url: "/assets/images/home/#{images.sample}",
+    default_price: Stripe::Product.retrieve(stripe_product.id).default_price
   )
 end
 

@@ -4,7 +4,6 @@ import { createContext, useState, useEffect } from "react";
 const CartContext = createContext(null)
 
 const CartProvider = ({ children }) => {
-  // const {user} = useContext(UserContext)
   const [cart, setCart] = useState({ cart_products: [] });
   const [productQuantity, setProductQuantity] = useState(0);
 
@@ -19,15 +18,6 @@ const CartProvider = ({ children }) => {
       }
     });
   }, []);
-
-  console.log(cart)
-
-  // function handleAddCartItem (addedItem) {
-  //   setCart({
-  //     ...cart,
-  //     cart_products: [...cart.cart_products, addedItem]
-  //   })
-  // }
 
   function handleAddCartItem(addedItem) {
     setCart((prevCart) => {
@@ -63,8 +53,6 @@ const CartProvider = ({ children }) => {
       }
     });
   }
-
-
 
   return (
     <CartContext.Provider value={{ cart, setCart, handleAddCartItem, productQuantity, setProductQuantity }}>

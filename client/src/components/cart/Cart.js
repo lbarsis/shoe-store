@@ -11,6 +11,8 @@ function Cart() {
     return <CartPoduct key={cartProduct.id} cartProduct={cartProduct} />
   })
 
+  console.log(cart)
+
   return (
     <div>
       <div className="cart-items">
