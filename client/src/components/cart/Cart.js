@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import '../../styles/CartStyles/Cart.css'
 import { CartContext } from '../../context/cartContext';
 import CartPoduct from './CartProduct'
-// import { UserContext } from '../../context/userContext';
 
 function Cart() {
   const {cart} = useContext(CartContext)
@@ -11,13 +10,15 @@ function Cart() {
     return <CartPoduct key={cartProduct.id} cartProduct={cartProduct} />
   })
 
-  console.log(cart)
-
   function checkout() {
     fetch('/checkout', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'}
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
+    .then(r => r.json())
+    .then(sessionUrl => window.location.replace(sessionUrl.session_url))
   }
 
   return (

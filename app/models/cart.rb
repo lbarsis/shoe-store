@@ -6,11 +6,10 @@ class Cart < ApplicationRecord
   def cart_total_price
     @total = 0
     self.cart_products.each do |cp|
-      @total += cp.product.price/100
+      @total += ( cp.product.price/100 * cp.quantity)
     end
     return @total
   end
-
   
   def cart_total_items
     @total = 0

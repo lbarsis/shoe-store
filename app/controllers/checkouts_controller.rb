@@ -6,7 +6,7 @@ class CheckoutsController < ApplicationController
       line_items: @current_user.cart_products.map { |cp| {price: cp.product.default_price, quantity: cp.quantity} },
       mode: 'payment',
     })
-    redirect_to session.url
+    render json: {session_url: session.url}, status: 303
   end
-end
 
+end
