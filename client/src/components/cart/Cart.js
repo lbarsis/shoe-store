@@ -13,6 +13,13 @@ function Cart() {
 
   console.log(cart)
 
+  function checkout() {
+    fetch('/checkout', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    })
+  }
+
   return (
     <div>
       <div className="cart-items">
@@ -26,7 +33,7 @@ function Cart() {
         <p>Total Items: {cart.cart_total_items}</p>
         <p>Total Price: {cart.cart_total_price}</p>
       </div>
-      <button>Checkout</button>
+      <button onClick={checkout}>Checkout</button>
     </div>
   );
 }
