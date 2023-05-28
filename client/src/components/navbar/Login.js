@@ -32,11 +32,12 @@ function Login() {
             setUser(user)
             // navigate('/')
           })
-        } else {
-          r.json().then(err => {
-            setLoginErrors(err)
-          })
-        }
+        } 
+        // else {
+        //   r.json().then(err => {
+        //     setLoginErrors(err)
+        //   })
+        // }
       }
       )
   }
