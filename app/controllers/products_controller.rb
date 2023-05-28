@@ -1,55 +1,60 @@
 class ProductsController < ApplicationController
   skip_before_action :authorize, only: :index
+  before_action :set_product, only: [:show, :update, :destroy]
+
   def index
     products = Product.all
     render json: products, status: :ok
   end
 
-  def create
-   stripe_product = Stripe::Product.create({
-      name: product_params[:name],
-      default_price_data: {
-        unit_amount: product_params[:price].to_i,
-        currency: 'usd'
-      }
-    })
-    product = Product.new(product_params)
-    product.default_price = stripe_product.default_price
-    product.save
-    render json: product, status: :created
+  def show
+    render json: @product.as_json(include: :images).merge(
+      images: @product.images.map do |image|
+        url_for(image)
+      end
+    )
   end
 
-  # def create
-  #   product = Product.new(product_params)
+  def create
+    product = Product.new(product_params.except(:image_url))
 
-  #   # Create a new Stripe product using the Stripe API
-  #   stripe_product = Stripe::Product.create({
-  #     name: product.name
-  #   })
+    if product.save
+      # Add to stripe products
+      stripe_product = Stripe::Product.create({
+        name: product_params[:name],
+        default_price_data: {
+          unit_amount: product_params[:price].to_i,
+          currency: 'usd'
+        }
+      })
+      
+      product.update!(default_price: stripe_product.default_price)
+      render json: product, status: :created
+    else
+      render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
 
-  #   # Set the default price for the Stripe product
-  #   stripe_price = Stripe::Price.create({
-  #     product: stripe_product.id,
-  #     unit_amount: product.price.to_i * 100, # Convert to cents
-  #     currency: 'usd'
-  #   })
+   def update
+    if @product.update(product_params)
+      render json: @product, status: :ok
+    else
+      render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
+    end
+  end
 
-  #   # Assign the Stripe product ID and default price ID to the server product
-  #   product.stripe_product_id = stripe_product.id
-  #   product.stripe_price_id = stripe_price.id
-
-  #   if product.save
-  #     render json: product, status: :created
-  #   else
-  #     render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
-  #   end
-  # end
-
+  def destroy
+    @product.destroy
+  end
 
   private
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
   def product_params
-    params.permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, :image_url)
+    params.require(:product).permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, image_url: [])
   end
 
 end

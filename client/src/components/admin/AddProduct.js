@@ -125,7 +125,7 @@ function AddProduct() {
 
         <label>Upload Image</label>
         <input
-          type="text"
+          type="file"
           name="image_url"
           onChange={handleChange}
           value={formData.image_url}
