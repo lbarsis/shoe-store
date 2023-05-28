@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(product_params.except(:image_url))
+    product = Product.new(product_params)
 
     if product.save
       # Add to stripe products
@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, image_url: [])
+    params.permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, image_url: [])
   end
 
 end
