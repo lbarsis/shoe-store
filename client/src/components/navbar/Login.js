@@ -30,7 +30,7 @@ function Login() {
         if (r.ok) {
           r.json().then(user => {
             setUser(user)
-            // navigate('/')
+            navigate('/')
           })
         } 
         // else {
