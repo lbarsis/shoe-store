@@ -18,8 +18,8 @@ function Cart() {
       }
     })
     .then(r => r.json())
-    .then(session => console.log(session))
-    // .then(sessionUrl => window.location.replace(sessionUrl.session_url))
+    // .then(session => console.log(session))
+    .then(sessionUrl => window.location.replace(sessionUrl.session_url))
   }
 
   return (
