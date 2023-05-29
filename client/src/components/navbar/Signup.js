@@ -6,13 +6,16 @@ import '../../styles/NavbarStyles/SignupForm.css'
 
 
 function Signup() {
-  const {setUser} = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
-  const [signupErrors, setSignupErrors] =useState(null)
+  const [signupErrors, setSignupErrors] = useState(null)
   const [formData, setFormData] = useState({
-    name: '',
+    fname: '',
+    lname: '',
     email: '',
-    password: ''
+    password: '',
+    password_confirmation: '',
+    is_admin: false
   })
 
   function handleChange(e) {
@@ -22,61 +25,43 @@ function Signup() {
     })
   }
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault()
     fetch('/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+      body: JSON.stringify({user: formData})
     })
-    .then( r => {
-      if (r.ok) {
-        r.json().then(user => {
-          setUser(user)
-          setSignupErrors(null)
-          navigate('/')
-        })
-      } else {
-        r.json().then(error => setSignupErrors(error))
-      }
-    })
+      .then(r => {
+        if (r.ok) {
+          r.json().then(user => {
+            setUser(user)
+            setSignupErrors(null)
+            navigate('/')
+          })
+        } else {
+          r.json().then(error => setSignupErrors(error))
+        }
+      })
   }
 
   return (
     <div className='signup'>
+
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={handleChange}
-          value={formData.name}
-        />
-
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={handleChange}
-          value={formData.email}
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          required
-          onChange={handleChange}
-          value={formData.password}
-        />
-
-        <button className='signup-btn' type='submit'>Submit</button>
+        <input name="fname" placeholder="First Name" type="text" value={formData.fname} onChange={handleChange} />
+        <input name="lname" placeholder="Last Name" type="text" value={formData.lname} onChange={handleChange} />
+        <input name="email" placeholder="Email" type="text" value={formData.email} onChange={handleChange} />
+        <input name="password" placeholder="Password" type="password" value={formData.password} onChange={handleChange} />
+        <input name="password_confirmation" placeholder="Confirm Password" type="password" value={formData.password_confirmation} onChange={handleChange} />
+        <button className='signup-btn' type="submit">Sign Up</button>
       </form>
-      {signupErrors ? 
-        signupErrors.errors.map(error => <p key={uuidv4()}>{error}</p>)
-      :
-        null
-    }
+
+      {signupErrors?.errors.length > 0 ?
+        signupErrors?.errors?.map(error => <p key={uuidv4()}>{error}</p>)
+        // console.log(signupErrors)
+        : null
+      }
     </div>
   );
 }

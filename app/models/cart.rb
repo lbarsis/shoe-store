@@ -1,7 +1,10 @@
 class Cart < ApplicationRecord
   belongs_to :user
-  has_many :cart_products
+  has_many :cart_products, dependent: :destroy
   has_many :products, through: :cart_products
+
+  # Validations
+  validates :user_id, presence: true
 
   def cart_total_price
     @total = 0

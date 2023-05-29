@@ -33,11 +33,11 @@ function Login() {
             navigate('/')
           })
         } 
-        // else {
-        //   r.json().then(err => {
-        //     setLoginErrors(err)
-        //   })
-        // }
+        else {
+          r.json().then(err => {
+            setLoginErrors(err)
+          })
+        }
       }
       )
   }
