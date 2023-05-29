@@ -30,7 +30,7 @@ const CartProvider = ({ children }) => {
         return {
           ...prevCart,
           cart_products: [...existingProducts, addedItem],
-          cart_total_price: prevCart.cart_total_price + addedItem.product.price/100,
+          cart_total_price: prevCart.cart_total_price + addedItem.product.price / 100,
           cart_total_items: prevCart.cart_total_items + 1
         };
       } else {
@@ -47,7 +47,7 @@ const CartProvider = ({ children }) => {
         return {
           ...prevCart,
           cart_products: updatedProducts,
-          cart_total_price: prevCart.cart_total_price + addedItem.product.price/100,
+          cart_total_price: prevCart.cart_total_price + addedItem.product.price / 100,
           cart_total_items: prevCart.cart_total_items + 1
         };
       }
@@ -57,7 +57,7 @@ const CartProvider = ({ children }) => {
   function handleUpdateCartItem(updatedItem) {
     setCart((prevCart) => {
       const existingProducts = prevCart.cart_products;
-  
+
       const updatedProducts = existingProducts.map((cartProduct) => {
         if (cartProduct.id === updatedItem.id) {
           if (updatedItem.quantity === 0) {
@@ -68,29 +68,57 @@ const CartProvider = ({ children }) => {
         }
         return cartProduct;
       }).filter(Boolean);
-  
+
+      console.log(updatedProducts)
+
       const totalItems = updatedProducts.reduce(
         (total, product) => total + product.quantity,
         0
       );
-  
+
       const totalPrice = updatedProducts.reduce(
         (total, product) => total + product.product.price * product.quantity,
         0
       );
-  
+
       return {
         ...prevCart,
         cart_products: updatedProducts,
-        cart_total_price: totalPrice/100,
+        cart_total_price: totalPrice / 100,
         cart_total_items: totalItems
       };
     });
   }
-  
+
+  function handleRemoveCartItem(productId) {
+    setCart((prevCart) => {
+      const existingProducts = prevCart.cart_products;
+
+      const updatedProducts = existingProducts.filter(
+        (cartProduct) => cartProduct.product.id !== productId
+      );
+
+      const totalItems = updatedProducts.reduce(
+        (total, product) => total + product.quantity,
+        0
+      );
+
+      const totalPrice = updatedProducts.reduce(
+        (total, product) => total + product.product.price * product.quantity,
+        0
+      );
+
+      return {
+        ...prevCart,
+        cart_products: updatedProducts,
+        cart_total_price: totalPrice / 100,
+        cart_total_items: totalItems
+      };
+    });
+  }
 
   return (
-    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, handleUpdateCartItem, productQuantity, setProductQuantity }}>
+    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, handleUpdateCartItem, productQuantity, setProductQuantity, handleRemoveCartItem }}>
       {children}
     </CartContext.Provider>
   )

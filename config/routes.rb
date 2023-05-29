@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :product_categories
-  resources :cart_products, only: [:create, :update]
+  resources :cart_products, only: [:create, :update, :destroy]
   resources :carts
   resources :order_products
   resources :orders

@@ -4,10 +4,8 @@ import { ErrorsContext } from '../../context/errorsContext';
 
 function ProductCard({ product }) {
   const { errors, setErrors } = useContext(ErrorsContext)
-  const { cart, handleAddCartItem, handleUpdateCartItem } = useContext(CartContext);
+  const { cart, handleAddCartItem, handleUpdateCartItem, handleRemoveCartItem } = useContext(CartContext);
   const [productQuantity, setProductQuantity] = useState(0);
-
-  // console.log(cart)
 
   useEffect(() => {
     const foundProduct = cart.cart_products?.find(
@@ -34,7 +32,7 @@ function ProductCard({ product }) {
       if (r.ok) {
         r.json().then((addedProduct) => {
           handleAddCartItem(addedProduct)
-          // setErrors(null)
+          setErrors(null)
         });
       } else {
         r.json().then(err => {
@@ -44,7 +42,7 @@ function ProductCard({ product }) {
     });
   }
 
-  function removeItemFromCart() {
+  function subtractItemFromCart() {
     const foundProduct = cart.cart_products.find(
       (cartProduct) => cartProduct.product.id === product.id
     );
@@ -62,7 +60,6 @@ function ProductCard({ product }) {
         .then((r) => {
           if (r.ok) {
             r.json().then((updatedProduct) => {
-              // Update local state to reflect changes
               handleUpdateCartItem(updatedProduct);
               setErrors(null);
             });
@@ -75,9 +72,24 @@ function ProductCard({ product }) {
     }
   }
 
+  function removeItemFromCart() {
+    fetch(`/cart_products/${product.id}`, {
+      method: 'DELETE',
+    })
+      .then((r) => {
+        if (r.ok) {
+          handleRemoveCartItem(product.id);
+        } else {
+          r.json().then(err => {
+            setErrors(err)
+          })
+        }
+      });
+  }
+
   return (
     <div className="card">
-      <img src={product.image_url} alt="Poduct" className="card-image" />
+      <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)}/>
       <div className="card-content">
         <h2 className="card-title">{product.name}</h2>
         <p className="card-text">
@@ -90,9 +102,9 @@ function ProductCard({ product }) {
           Add to Cart
         </button>
         <div className="button-bar">
-          <button onClick={removeItemFromCart} className="qty-adjust-button">-</button>
+          <button onClick={subtractItemFromCart} className="qty-adjust-button">-</button>
           <p className="qty-count">{productQuantity}</p>
-          <button className="qty-adjust-button">+</button>
+          <button onClick={addItemToCart} className="qty-adjust-button">+</button>
         </div>
       </div>
     </div>
