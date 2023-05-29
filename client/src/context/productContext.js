@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 const ProductContext = createContext(null)
 
 const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     // auto-login
@@ -14,9 +14,16 @@ const ProductProvider = ({ children }) => {
     });
   }, []);
 
+  function handleAddProduct(newProduct) {
+    setProducts([
+      ...products,
+      newProduct
+    ])
+  }
+
  
   return (
-    <ProductContext.Provider value={ {products, setProducts}}>
+    <ProductContext.Provider value={ {products, setProducts, handleAddProduct}}>
       {children}
     </ProductContext.Provider>
   )

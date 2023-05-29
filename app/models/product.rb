@@ -13,5 +13,7 @@ class Product < ApplicationRecord
   # Validations
   validates :sku, :inventory_qty, :name, :price, presence: true
   validates :sku, :inventory_qty, numericality: { only_integer: true }
-  validates :discount_percent, :price, numericality: { greater_than_or_equal_to: 1.0 }
+  validates :sku, :name, uniqueness: true
+  validates :discount_percent, :price, numericality: { greater_than_or_equal_to: 0.0 }
+  validates :price, numericality: { greater_than_or_equal_to: 10.0 }
 end

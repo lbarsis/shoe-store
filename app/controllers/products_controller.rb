@@ -25,6 +25,10 @@ class ProductsController < ApplicationController
         default_price_data: {
           unit_amount: product_params[:price].to_i,
           currency: 'usd'
+        },
+        metadata: {
+          product_id: product.id,
+          sku: product_params[:sku]
         }
       })
       
@@ -54,7 +58,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, image_url: [])
+    params.require(:product).permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, image_url: [])
   end
 
 end
