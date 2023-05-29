@@ -1,24 +1,5 @@
-# class CartProductsController < ApplicationController
-#   def add_to_cart
-#     cart_product = CartProduct.new(cart_product_params)
-#     cart_product.cart = @current_user.cart # Associate with the current user's cart
-#     if cart_product.save
-#       render json: cart_product, status: :ok
-#     else
-#       render json: { error: cart_product.errors.full_messages }, status: :unprocessable_entity
-#     end
-#   end
-
-#   private
-
-#   def cart_product_params
-#     params.require(:cart_product).permit(:quantity, :product_id)
-#   end
-  
-# end
-
 class CartProductsController < ApplicationController
-  def add_to_cart
+  def create
     product_id = params[:cart_product][:product_id]
     quantity = params[:cart_product][:quantity]
     cart = @current_user.cart
@@ -46,6 +27,19 @@ class CartProductsController < ApplicationController
       end
     end
   end
+
+  def update
+    cart_product = CartProduct.find(params[:id])
+    
+    if cart_product_params[:quantity].to_i == 0
+      cart_product.destroy
+      render json: {} # return an empty object or some message to confirm deletion
+    elsif cart_product.update(cart_product_params)
+      render json: cart_product
+    else
+      render json: { errors: cart_product.errors.full_messages }, status: :unprocessable_entity
+    end
+  end  
 
   private
 

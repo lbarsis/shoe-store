@@ -4,11 +4,11 @@ import { createContext, useState, useEffect } from "react";
 const CartContext = createContext(null)
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState({ cart_products: [] });
+  const [cart, setCart] = useState([]);
   const [productQuantity, setProductQuantity] = useState(0);
 
   useEffect(() => {
-    fetch("/my-cart").then((r) => {
+    fetch("/carts/my-cart").then((r) => {
       // console.log(r)
       if (r.ok) {
         r.json().then((cart) => {
@@ -54,8 +54,43 @@ const CartProvider = ({ children }) => {
     });
   }
 
+  function handleUpdateCartItem(updatedItem) {
+    setCart((prevCart) => {
+      const existingProducts = prevCart.cart_products;
+  
+      const updatedProducts = existingProducts.map((cartProduct) => {
+        if (cartProduct.id === updatedItem.id) {
+          if (updatedItem.quantity === 0) {
+            return null;
+          } else {
+            return updatedItem;
+          }
+        }
+        return cartProduct;
+      }).filter(Boolean);
+  
+      const totalItems = updatedProducts.reduce(
+        (total, product) => total + product.quantity,
+        0
+      );
+  
+      const totalPrice = updatedProducts.reduce(
+        (total, product) => total + product.product.price * product.quantity,
+        0
+      );
+  
+      return {
+        ...prevCart,
+        cart_products: updatedProducts,
+        cart_total_price: totalPrice/100,
+        cart_total_items: totalItems
+      };
+    });
+  }
+  
+
   return (
-    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, productQuantity, setProductQuantity }}>
+    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, handleUpdateCartItem, productQuantity, setProductQuantity }}>
       {children}
     </CartContext.Provider>
   )

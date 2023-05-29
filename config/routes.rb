@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :product_categories
-  # resources :cart_products, only: [:create]
+  resources :cart_products, only: [:create, :update]
   resources :carts
   resources :order_products
   resources :orders
@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   resources :categories
   resources :users
 
-  get '/my-cart', to: 'carts#my_cart'
-  post '/cart_products', to: 'cart_products#add_to_cart'
+  get '/carts/my-cart', to: 'carts#my_cart'
+  # post '/cart_products', to: 'cart_products#add_to_cart'
 
   post '/checkout', to: 'checkouts#checkout'
 
