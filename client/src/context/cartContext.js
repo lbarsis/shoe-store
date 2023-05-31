@@ -22,7 +22,7 @@ const CartProvider = ({ children }) => {
   function handleAddCartItem(addedItem) {
     setCart((prevCart) => {
       const existingProducts = prevCart.cart_products;
-      const isProductInCart = existingProducts.some(
+      const isProductInCart = existingProducts?.some(
         (cartProduct) => cartProduct.product.id === addedItem.product.id
       );
 
@@ -61,15 +61,13 @@ const CartProvider = ({ children }) => {
       const updatedProducts = existingProducts.map((cartProduct) => {
         if (cartProduct.id === updatedItem.id) {
           if (updatedItem.quantity === 0) {
-            return null;
+            return null
           } else {
             return updatedItem;
           }
         }
         return cartProduct;
       }).filter(Boolean);
-
-      console.log(updatedProducts)
 
       const totalItems = updatedProducts.reduce(
         (total, product) => total + product.quantity,
@@ -91,30 +89,24 @@ const CartProvider = ({ children }) => {
   }
 
   function handleRemoveCartItem(productId) {
-    setCart((prevCart) => {
-      const existingProducts = prevCart.cart_products;
+    const cartItems = cart.cart_products.filter(product => product.id !== productId)
 
-      const updatedProducts = existingProducts.filter(
-        (cartProduct) => cartProduct.product.id !== productId
-      );
+    const totalItems = cartItems.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
 
-      const totalItems = updatedProducts.reduce(
-        (total, product) => total + product.quantity,
-        0
-      );
+    const totalPrice = cartItems.reduce(
+      (total, product) => total + product.product.price * product.quantity,
+      0
+    );
 
-      const totalPrice = updatedProducts.reduce(
-        (total, product) => total + product.product.price * product.quantity,
-        0
-      );
-
-      return {
-        ...prevCart,
-        cart_products: updatedProducts,
-        cart_total_price: totalPrice / 100,
-        cart_total_items: totalItems
-      };
-    });
+    setCart({
+      ...cart,
+      cart_products: cartItems,
+      cart_total_price: totalPrice / 100,
+      cart_total_items: totalItems
+    })
   }
 
   return (

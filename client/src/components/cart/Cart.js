@@ -4,7 +4,7 @@ import { CartContext } from '../../context/cartContext';
 import CartPoduct from './CartProduct'
 
 function Cart() {
-  const {cart} = useContext(CartContext)
+  const {cart, setCart, handleRemoveCartItem} = useContext(CartContext)
 
   const displayCartItems = cart?.cart_products?.map(cartProduct => {
     return <CartPoduct key={cartProduct.id} cartProduct={cartProduct} />
@@ -18,7 +18,6 @@ function Cart() {
       }
     })
     .then(r => r.json())
-    // .then(session => console.log(session))
     .then(sessionUrl => window.location.replace(sessionUrl.session_url))
   }
 

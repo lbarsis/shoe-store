@@ -72,21 +72,6 @@ function ProductCard({ product }) {
     }
   }
 
-  function removeItemFromCart() {
-    fetch(`/cart_products/${product.id}`, {
-      method: 'DELETE',
-    })
-      .then((r) => {
-        if (r.ok) {
-          handleRemoveCartItem(product.id);
-        } else {
-          r.json().then(err => {
-            setErrors(err)
-          })
-        }
-      });
-  }
-
   return (
     <div className="card">
       <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)}/>
