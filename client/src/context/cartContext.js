@@ -54,31 +54,31 @@ const CartProvider = ({ children }) => {
     });
   }
 
-  function handleUpdateCartItem(updatedItem) {
+  function handleUpdateCartItem(updatedProduct) {
+    const updatedProducts = cart.cart_products.map(product => {
+      if (product.id === updatedProduct.id) {
+        return updatedProduct
+      } else {
+        return product
+      }
+    })
+
+    const totalItems = updatedProducts.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+
+    const totalPrice = updatedProducts.reduce(
+      (total, product) => total + product.product.price * product.quantity,
+      0
+    );
+
+    // console.log(totalItems)
+    // if (updatedProduct.quantity === 0) {
+    //   return handleRemoveCartItem(updatedProduct.id)
+    // } 
+
     setCart((prevCart) => {
-      const existingProducts = prevCart.cart_products;
-
-      const updatedProducts = existingProducts.map((cartProduct) => {
-        if (cartProduct.id === updatedItem.id) {
-          if (updatedItem.quantity === 0) {
-            return null
-          } else {
-            return updatedItem;
-          }
-        }
-        return cartProduct;
-      }).filter(Boolean);
-
-      const totalItems = updatedProducts.reduce(
-        (total, product) => total + product.quantity,
-        0
-      );
-
-      const totalPrice = updatedProducts.reduce(
-        (total, product) => total + product.product.price * product.quantity,
-        0
-      );
-
       return {
         ...prevCart,
         cart_products: updatedProducts,

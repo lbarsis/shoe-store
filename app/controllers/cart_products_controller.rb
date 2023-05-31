@@ -30,11 +30,7 @@ class CartProductsController < ApplicationController
 
   def update
     cart_product = CartProduct.find(params[:id])
-    
-    if cart_product_params[:quantity].to_i == 0
-      cart_product.destroy
-      render json: {} # return an empty object or some message to confirm deletion
-    elsif cart_product.update(cart_product_params)
+    if cart_product.update(cart_product_params)
       render json: cart_product
     else
       render json: { errors: cart_product.errors.full_messages }, status: :unprocessable_entity
