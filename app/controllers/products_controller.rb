@@ -31,8 +31,8 @@ class ProductsController < ApplicationController
           sku: product_params[:sku]
         }
       })
-      
-      product.update!(default_price: stripe_product.default_price)
+
+      product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id)
       render json: product, status: :created
     else
       render json: { errors: product.errors.full_messages }, status: :unprocessable_entity

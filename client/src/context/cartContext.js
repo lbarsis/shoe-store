@@ -73,11 +73,6 @@ const CartProvider = ({ children }) => {
       0
     );
 
-    // console.log(totalItems)
-    // if (updatedProduct.quantity === 0) {
-    //   return handleRemoveCartItem(updatedProduct.id)
-    // } 
-
     setCart((prevCart) => {
       return {
         ...prevCart,
