@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../context/userContext';
+// import { UserContext } from '../../context/userContext';
 import { ErrorsContext } from '../../context/errorsContext';
 import { v4 as uuidv4 } from 'uuid';
 import { ProductContext } from '../../context/productContext';
@@ -17,18 +17,27 @@ function AddProduct() {
     brand: "",
     description: "",
     price: '',
-    image_url: []
+    image_url: ''
   })
 
   function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    if (e.target.name === "image_url") {
+      const myFileInput = document.querySelector('input[type="file"]');
+      const myFileName = myFileInput?.files[0]?.name;
+      setFormData({
+        ...formData,
+        image_url: `/assets/images/home/${myFileName}`
+      })
+    } else{
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      })
+    }
   }
 
   function handleSubmit(e) {
-    const { sku, discount_percent, inventory_qty, units, name, description, price, image_url } = formData
+    // const { sku, discount_percent, inventory_qty, units, name, description, price, image_url } = formData
 
     e.preventDefault()
     fetch('/products', {
@@ -50,7 +59,7 @@ function AddProduct() {
               brand: "",                                         
               description: "",
               price: '',
-              image_url: ""
+              image_url: ''
             })
           })
         } else {
@@ -133,13 +142,13 @@ function AddProduct() {
           type="file"
           name="image_url"
           onChange={handleChange}
-          value={formData.image_url}
+          // value={formData.image_url}
         /><br/>
 
         <button>submit</button>
 
       </form>
-      {errors?.errors.length > 0 ?
+      {errors?.errors?.length > 0 ?
         errors?.errors?.map(error => <p key={uuidv4()}>{error}</p>)
         : null
       }
