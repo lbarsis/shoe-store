@@ -49,6 +49,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
+    render json: {message: "Itinerary Deleted"}, head: :no_content
   end
 
   private

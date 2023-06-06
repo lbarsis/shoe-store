@@ -21,9 +21,13 @@ const ProductProvider = ({ children }) => {
     ])
   }
 
+  function handleDeleteProduct(deletedProduct) {
+    const displayProducts = products.filter(product => product.id !== deletedProduct.id)
+    setProducts(displayProducts)
+  }
  
   return (
-    <ProductContext.Provider value={ {products, setProducts, handleAddProduct}}>
+    <ProductContext.Provider value={ {products, setProducts, handleAddProduct, handleDeleteProduct}}>
       {children}
     </ProductContext.Provider>
   )

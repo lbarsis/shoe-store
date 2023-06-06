@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../context/cartContext';
 import { ErrorsContext } from '../../context/errorsContext';
+import { ProductContext } from '../../context/productContext';
 
 function ProductCard({ product }) {
   const { errors, setErrors } = useContext(ErrorsContext)
+  const { handleDeleteProduct } = useContext(ProductContext)
   const { cart, handleAddCartItem, handleUpdateCartItem, handleRemoveCartItem } = useContext(CartContext);
   const [productQuantity, setProductQuantity] = useState(0);
 
@@ -72,9 +74,22 @@ function ProductCard({ product }) {
     }
   }
 
+  function deleteProduct() {
+    fetch(`/products/${product.id}`, {
+      method: 'DELETE'
+    })
+      .then(r => {
+        if (r.ok) {
+          r.json().then(() => handleDeleteProduct(product))
+        } else {
+          r.json().then(error => console.log(error))
+        }
+      })
+  }
+
   return (
     <div className="card">
-      <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)}/>
+      <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)} />
       <div className="card-content">
         <h2 className="card-title">{product.name}</h2>
         <p className="card-text">
@@ -89,7 +104,8 @@ function ProductCard({ product }) {
         <div className="button-bar">
           <button onClick={subtractItemFromCart} className="qty-adjust-button">-</button>
           <p className="qty-count">{productQuantity}</p>
-          <button onClick={addItemToCart} className="qty-adjust-button">+</button>
+          <button onClick={addItemToCart} className="qty-adjust-button">+</button><br />
+          <button onClick={deleteProduct}>Delete</button>
         </div>
       </div>
     </div>
