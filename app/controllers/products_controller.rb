@@ -48,8 +48,12 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
-    render json: {message: "Itinerary Deleted"}, head: :no_content
+    if @product.destroy
+      Stripe::Product.update(@product.stripe_product_id, {active: false})
+      render json: {message: "Itinerary Deleted"}, head: :no_content
+    else
+      render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
+    end
   end
 
   private
