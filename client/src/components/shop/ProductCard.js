@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../context/cartContext';
 import { ErrorsContext } from '../../context/errorsContext';
 import { ProductContext } from '../../context/productContext';
+import { Link } from 'react-router-dom'
 
 function ProductCard({ product }) {
   const { errors, setErrors } = useContext(ErrorsContext)
@@ -105,6 +106,7 @@ function ProductCard({ product }) {
           <button onClick={subtractItemFromCart} className="qty-adjust-button">-</button>
           <p className="qty-count">{productQuantity}</p>
           <button onClick={addItemToCart} className="qty-adjust-button">+</button><br />
+          <Link to={`/edit-product/${product.id}`}>Edit Product</Link>
           <button onClick={deleteProduct}>Delete</button>
         </div>
       </div>

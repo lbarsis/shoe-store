@@ -21,13 +21,24 @@ const ProductProvider = ({ children }) => {
     ])
   }
 
+  function handleUpdateProduct(updatedProduct) {
+    const updatedProducts = products.map(product => {
+      if (product.id === updatedProduct.id) {
+        return updatedProduct
+      } else {
+        return product
+      }
+    })
+    setProducts(updatedProducts)
+  }
+
   function handleDeleteProduct(deletedProduct) {
     const displayProducts = products.filter(product => product.id !== deletedProduct.id)
     setProducts(displayProducts)
   }
  
   return (
-    <ProductContext.Provider value={ {products, setProducts, handleAddProduct, handleDeleteProduct}}>
+    <ProductContext.Provider value={ {products, setProducts, handleAddProduct, handleDeleteProduct, handleUpdateProduct}}>
       {children}
     </ProductContext.Provider>
   )
