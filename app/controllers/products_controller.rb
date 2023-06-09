@@ -41,6 +41,20 @@ class ProductsController < ApplicationController
 
    def update
     if @product.update(product_params)
+      new_price = Stripe::Price.create(
+        unit_amount: product_params[:price].to_i, 
+        currency: 'usd',
+        product: @product.stripe_product_id,
+      )
+      
+      Stripe::Product.update(@product.stripe_product_id, 
+        name: product_params[:name],
+        default_price: new_price.id,
+        metadata: {
+          product_id: @product.id,
+          sku: product_params[:sku]
+        }
+      )
       render json: @product, status: :ok
     else
       render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
