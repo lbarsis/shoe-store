@@ -20,7 +20,7 @@ function Cart() {
     .then(r => r.json())
     .then(sessionUrl => window.location.replace(sessionUrl.session_url))
   }
-
+ 
   return (
     <div>
       <div className="cart-items">

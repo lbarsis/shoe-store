@@ -5,7 +5,7 @@ import { ErrorsContext } from '../../context/errorsContext';
 function CartProduct({cartProduct}) {
   const {setCart, handleRemoveCartItem} = useContext(CartContext)
   const { errors, setErrors } = useContext(ErrorsContext)
-  
+
   function removeItemFromCart() {
     fetch(`/cart_products/${cartProduct.id}`, {
       method: 'DELETE',

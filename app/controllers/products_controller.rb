@@ -55,6 +55,7 @@ class ProductsController < ApplicationController
           sku: product_params[:sku]
         }
       )
+      @product.update!(default_price: new_price.id)
       render json: @product, status: :ok
     else
       render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
