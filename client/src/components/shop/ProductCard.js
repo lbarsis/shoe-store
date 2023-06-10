@@ -90,7 +90,7 @@ function ProductCard({ product }) {
 
   return (
     <div className="card">
-      <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)} />
+      <img src={product.image_url} alt="Product" className="card-image" onClick={() => console.log(product.id)} />
       <div className="card-content">
         <h2 className="card-title">{product.name}</h2>
         <p className="card-text">

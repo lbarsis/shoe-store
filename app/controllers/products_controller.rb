@@ -8,11 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: @product.as_json(include: :images).merge(
-      images: @product.images.map do |image|
-        url_for(image)
-      end
-    )
+    render json: @product
   end
 
   def create
@@ -32,7 +28,8 @@ class ProductsController < ApplicationController
         }
       })
 
-      product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id)
+      product.product_image.attach(io: File.open(Rails.root.join('client', 'public', 'assets', 'images', 'home', product_params[:image_url])), filename: product_params[:image_url], content_type: 'image/png')
+      product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id, image_url: rails_blob_url(product.product_image))
       render json: product, status: :created
     else
       render json: { errors: product.errors.full_messages }, status: :unprocessable_entity

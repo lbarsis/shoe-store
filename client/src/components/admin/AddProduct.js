@@ -26,7 +26,7 @@ function AddProduct() {
       const myFileName = myFileInput?.files[0]?.name;
       setFormData({
         ...formData,
-        image_url: `/assets/images/home/${myFileName}`
+        image_url: myFileName
       })
     } else{
       setFormData({
@@ -48,6 +48,7 @@ function AddProduct() {
       .then(r => {
         if (r.ok) {
           r.json().then(product => {
+            console.log(product)
             handleAddProduct(product)
             setErrors(null)
             setFormData({
@@ -70,6 +71,7 @@ function AddProduct() {
       }
       )
   }
+  // console.log(formData)
   return (
     <div className="add-product-form">
       <form onSubmit={handleSubmit}>

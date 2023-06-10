@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  has_many_attached :images
+  has_one_attached :product_image
   has_many :order_products, dependent: :destroy
   has_many :orders, through: :order_products
   has_many :categories
