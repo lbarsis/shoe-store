@@ -111,7 +111,7 @@ git clone https://github.com/your-github-username/steppers.git
 
 1. In a new terminal window or tab, navigate to the frontend directory: 
     ```bash
-    cd steppers/frontend
+    cd steppers/client
     ```
 2. Install the required npm packages: 
     ```bash
@@ -122,42 +122,26 @@ git clone https://github.com/your-github-username/steppers.git
     npm start
     ```
 
-Open your browser and navigate to `http://localhost:3000` to see the Steppers application running locally. The backend server must be running concurrently with the frontend server for the application to work properly.
+Open your browser and navigate to `http://localhost:4000` to see the Steppers application running locally. The backend server must be running concurrently with the frontend server for the application to work properly.
 
 ## Usage
-1. **Navigate to the hompage**
-Here will be a brief description on how the application can be used. It is recommended this page is reviewed prior to starting. The descriptions of each page here will give a summary of how they can be used together.
 
-2. **Navigate to the Add Item page**
-Going directly to the Inventory page will only show you a header because no items have been added at the start of the application. The Add Item page allows users to add items and get their inventory started. This page consists of a single form with eight input fields: Category, Name, Vendor, Description, Status, Flag Amount, On Hand, Unit of Measure.
+Once you have the application up and running, you can navigate the website via the navigation bar at the top of the page. Here's a brief description of each page:
 
-### Category
-The Category input is the set or group that an item can belong to. For example, if you were inventorying cars and wanted to group them by manufacturer, you could select Ford for all ford models or Toyota for all Toyota models. When the application is initially opened there will not be any categories to choose from. This is because the user is responsible for creating their own categories based on specific needs. 
+- **Home**: Displays a banner with the store name and a button that redirects you to the About page. You will also see three cards featuring unique products and a short description for each.
 
-To add a category to the list, simply select 'Other' from the drop down menu. A new field will appear that will allow an input to be typed. Type any string into this field and continue to the 'Name' field. *As of right now, there is no way to delete a category once it has been added except through modifying the db.json file*
+- **Shop**: Contains a grid layout of all the product cards. Hover over a product to see more information and click the 'Add to Cart' button to add items to your cart. If you are an admin, you will also see options to edit or delete a product.
 
-After all the fields are input and the item is submitted, this category will be available from the drop down menu.
+- **About**: Learn more about the company, its founding, and its goals on this page.
 
-### Name
-The name of the item.
+- **Contact**: This page provides information on how to contact Steppers (note: all information here is fictitious).
 
-### Vendor
-Vendor is the location or manufacturer that the item is purchased from.
+- **Add Product**: If you are an admin, this tab will be visible in the navigation bar. Fill out the form with the required product data and click submit to add a new product to both the website and the Stripe database.
 
-### Description
-Description is used to explain what the item is and how it is used in specific applications.
+- **Account**: Access this dropdown menu to view your cart and the logout button.
 
-### Status
-Status is used to denote the current state the item is in. Example: if an item is fully stocked, the user could write 'In Stock' in the field. If the item is low or out, 'Out of Stock' could be input, or 'On Order' if the item has already been ordered. 
+To purchase items, add them to your cart and then navigate to the Cart page. Here you can review your items and proceed to checkout by clicking the 'Checkout' button. This will generate a Stripe checkout session and redirect you to the secure Stripe checkout page. After successful payment, you will receive confirmation and be redirected to the Steppers home page.
 
-### Flag Amount
-The Flag Amount is the point at which the application should notify you that the quantity of stock is at it's lowest point. If you always need to have 5 of an specific item and the storage drops to 5 or lower, then the item will be flagged for reorder.
-
-### On Hand
-The On Hand amount is the current stock available for a specific item.
-
-### UoM (Unit of Measure)
-Unit of measure is the way an item is counted. String can be counted in linear feet or 'LF', pens will most likely be counted in boxes or 'BOX' and larger items could potentially be listed as each or 'EA'.
 
 ## Examples
 ![Example](./images/video1765546443.gif)
