@@ -88,8 +88,6 @@ function ProductCard({ product }) {
       })
   }
 
-  console.log(product)
-
   return (
     <div className="card">
       <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)} />
