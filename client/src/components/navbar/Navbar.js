@@ -9,7 +9,7 @@ function Navbar() {
       <nav>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/shop'>Shop</NavLink>
-        <NavLink to='/sale'>Sale</NavLink>
+        {/* <NavLink to='/sale'>Sale</NavLink> */}
         <NavLink to='/about'>About</NavLink>
         <NavLink to='/contact'>Contact</NavLink>
         <NavLink to='/add-product'>Add Product</NavLink>
