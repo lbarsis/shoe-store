@@ -88,26 +88,29 @@ function ProductCard({ product }) {
       })
   }
 
+  console.log(product)
+
   return (
     <div className="card">
       <img src={product.image_url} alt="Poduct" className="card-image" onClick={() => console.log(product.id)} />
       <div className="card-content">
         <h2 className="card-title">{product.name}</h2>
         <p className="card-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa
-          iaculis, a dictum ipsum finibus. Duis auctor enim in elementum
-          suscipit.
+          {product.description}
         </p>
+        <h4>${product.price / 100}.00</h4>
+        <p>Brand: {product.brand}</p>
+        <p>Current Stock: {product.inventory_qty}</p>
+        <p>P/N: {product.sku}</p>
         <button onClick={addItemToCart} className="card-button">
           Add to Cart
         </button>
         <div className="button-bar">
-          <button onClick={subtractItemFromCart} className="qty-adjust-button">-</button>
+          <button onClick={subtractItemFromCart} className="qty-adjust-button minus">-</button>
           <p className="qty-count">{productQuantity}</p>
-          <button onClick={addItemToCart} className="qty-adjust-button">+</button><br />
-          <Link to={`/edit-product/${product.id}`}>Edit Product</Link>
-          <button onClick={deleteProduct}>Delete</button>
+          <button onClick={addItemToCart} className="qty-adjust-button plus">+</button>
+          <Link to={`/edit-product/${product.id}`} className='edit-button'>Edit Product</Link>
+          <button onClick={deleteProduct} className='delete-button'>Delete</button>
         </div>
       </div>
     </div>

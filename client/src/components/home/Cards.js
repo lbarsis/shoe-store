@@ -1,8 +1,5 @@
 import React from 'react';
 import '../../styles/HomeStyles/Cards.css'
-// import saleShoe from '../../images/home/SaleShoes-3.png'
-// import mensShoe from '../../images/home/Mens Shoe.png'
-// import womensShoe from '../../images/home/Womensrunningshoes-2.png'
 
 function Cards() {
   return (
@@ -11,8 +8,8 @@ function Cards() {
         <div className="card">
           <img src="/assets/images/home/MensShoe.png" alt="Sale" className="card-image"/>
             <div className="card-content">
-              <h2 className="card-title">Men</h2>
-              <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa iaculis, a dictum ipsum finibus. Duis auctor enim in elementum suscipit. </p>
+              <h2 className="card-title">Stylish</h2>
+              <p className="card-text">Lorem ipsum dolor sit amet</p>
               <a href="#" className="card-button">Learn More</a>
             </div>
         </div>
@@ -20,8 +17,8 @@ function Cards() {
         <div className="card">
           <img src="/assets/images/home/Womensrunningshoes-2.png" alt="Sale" className="card-image"/>
             <div className="card-content">
-              <h2 className="card-title">Women</h2>
-              <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa iaculis, a dictum ipsum finibus. Duis auctor enim in elementum suscipit. </p>
+              <h2 className="card-title">Modern</h2>
+              <p className="card-text">Lorem ipsum dolor sit amet</p>
               <a href="#" className="card-button">Learn More</a>
             </div>
         </div>
@@ -29,8 +26,8 @@ function Cards() {
         <div className="card">
           <img src="/assets/images/home/SaleShoes-3.png" alt="Sale" className="card-image"/>
             <div className="card-content">
-              <h2 className="card-title">Sale</h2>
-              <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus accumsan commodo orci vel tincidunt. Sed venenatis velit ut massa iaculis, a dictum ipsum finibus. Duis auctor enim in elementum suscipit. </p>
+              <h2 className="card-title">Unique</h2>
+              <p className="card-text">Lorem ipsum dolor sit amet</p>
               <a href="#" className="card-button">Learn More</a>
             </div>
         </div>
