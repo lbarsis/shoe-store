@@ -1,14 +1,26 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import '../../styles/CartStyles/Cart.css'
 import { CartContext } from '../../context/cartContext';
 import CartPoduct from './CartProduct'
 
 function Cart() {
-  const {cart, setCart, handleRemoveCartItem} = useContext(CartContext)
+  const {cart, setCart, setProductQuantity} = useContext(CartContext)
 
   const displayCartItems = cart?.cart_products?.map(cartProduct => {
     return <CartPoduct key={cartProduct.id} cartProduct={cartProduct} />
   })
+
+  useEffect(() => {
+    fetch("/carts/my-cart").then((r) => {
+      // console.log(r)
+      if (r.ok) {
+        r.json().then((cart) => {
+          setCart(cart)
+          setProductQuantity(productQuantity => productQuantity + 1)
+        });
+      }
+    });
+  }, []);
 
   function checkout() {
     fetch('/checkout', {
