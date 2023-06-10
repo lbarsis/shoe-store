@@ -4,7 +4,7 @@ import { CartContext } from '../../context/cartContext';
 import CartPoduct from './CartProduct'
 
 function Cart() {
-  const {cart, setCart, setProductQuantity} = useContext(CartContext)
+  const {cart, setCart, setProductQuantity, handleClearCart} = useContext(CartContext)
 
   const displayCartItems = cart?.cart_products?.map(cartProduct => {
     return <CartPoduct key={cartProduct.id} cartProduct={cartProduct} />
@@ -20,7 +20,7 @@ function Cart() {
         });
       }
     });
-  }, []);
+  }, [setCart, setProductQuantity]);
 
   function checkout() {
     fetch('/checkout', {
@@ -29,8 +29,26 @@ function Cart() {
         'Content-Type': 'application/json'
       }
     })
-    .then(r => r.json())
-    .then(sessionUrl => window.location.replace(sessionUrl.session_url))
+    .then(r => {
+      if (r.ok) {
+        r.json().then(sessionUrl => window.location.replace(sessionUrl.session_url))
+
+      }
+    })
+    // .then(r => r.json())
+    // .then(sessionUrl => window.location.replace(sessionUrl.session_url))
+  }
+
+  function clearCart() {
+    fetch('/cart/clear', { method: 'DELETE' })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message); // Log the success message
+      handleClearCart(); // Clear the cart in the frontend state as well
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
  
   return (
@@ -47,6 +65,7 @@ function Cart() {
         <p>Total Price: {cart.cart_total_price}</p>
       </div>
       <button onClick={checkout}>Checkout</button>
+      <button onClick={clearCart}>Clear Cart</button>
     </div>
   );
 }

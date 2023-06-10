@@ -104,8 +104,12 @@ const CartProvider = ({ children }) => {
     })
   }
 
+  function handleClearCart() {
+    setCart({ cart_products: [] });  // Reset the cart to an empty state
+}
+
   return (
-    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, handleUpdateCartItem, productQuantity, setProductQuantity, handleRemoveCartItem }}>
+    <CartContext.Provider value={{ cart, setCart, handleAddCartItem, handleUpdateCartItem, productQuantity, setProductQuantity, handleRemoveCartItem, handleClearCart }}>
       {children}
     </CartContext.Provider>
   )
