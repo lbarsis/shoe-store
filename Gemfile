@@ -13,9 +13,11 @@ gem 'stripe-rails'
 
 gem "image_processing", ">= 1.2"
 
-# gem 'activestorage', '~> 7.0', '>= 7.0.5'
+gem 'activestorage', '~> 7.0', '>= 7.0.5'
 
 gem 'active_model_serializers'
+
+gem "aws-sdk-s3", require: false
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
