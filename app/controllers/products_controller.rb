@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
         }
       })
 
-      product.product_image.attach(io: File.open(Rails.root.join('client', 'public', 'assets', 'images', 'home', product_params[:image_url])), filename: product_params[:image_url], content_type: 'image/png')
+      product.product_image.attach(product_params[:image_url])
       product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id, image_url: rails_blob_url(product.product_image))
       render json: product, status: :created
     else
@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, :image_url)
+    params.require(:product).permit(:sku, :discount_percent, :inventory_qty, :units, :name, :brand, :description, :price, :image_url, :product_image)
   end
 
 end

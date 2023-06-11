@@ -7,7 +7,7 @@ import '../../styles/FormStyles/AddProductForm.css'
 
 function AddProduct() {
   const { errors, setErrors } = useContext(ErrorsContext)
-  const {handleAddProduct} = useContext(ProductContext)
+  const { handleAddProduct } = useContext(ProductContext)
   const [formData, setFormData] = useState({
     sku: '',
     discount_percent: '',
@@ -22,11 +22,11 @@ function AddProduct() {
 
   function handleChange(e) {
     if (e.target.name === "image_url") {
-      const myFileInput = document.querySelector('input[type="file"]');
-      const myFileName = myFileInput?.files[0]?.name;
+      // const myFileInput = document.querySelector('input[type="file"]');
+      // const myFileName = myFileInput?.files[0]?.name;
       setFormData({
         ...formData,
-        image_url: myFileName
+        image_url: e.target.files[0]
       })
     } else{
       setFormData({
@@ -36,14 +36,35 @@ function AddProduct() {
     }
   }
 
+  // function handleChange(e) {
+
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value
+  //   })
+
+  // }
+
   function handleSubmit(e) {
     // const { sku, discount_percent, inventory_qty, units, name, description, price, image_url } = formData
-
     e.preventDefault()
+
+    const data = new FormData() // Create a new FormData object
+
+    // Append all the fields to the form data
+    for (const name in formData) {
+      if (name === "image_url") {
+        const myFileInput = document.querySelector('input[type="file"]');
+        const file = myFileInput?.files[0]; // Get the file object
+        data.append("product[" + name + "]", file) // Append the file object, not the name
+      } else {
+        data.append("product[" + name + "]", formData[name])
+      }
+    }
+
     fetch('/products', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product: formData })
+      body: data
     })
       .then(r => {
         if (r.ok) {
@@ -52,12 +73,12 @@ function AddProduct() {
             handleAddProduct(product)
             setErrors(null)
             setFormData({
-              sku: '',                                                  
-              discount_percent: '',                                       
-              inventory_qty: '',                                            
-              units: "",                                        
-              name: "",                                  
-              brand: "",                                         
+              sku: '',
+              discount_percent: '',
+              inventory_qty: '',
+              units: "",
+              name: "",
+              brand: "",
               description: "",
               price: '',
               image_url: ''
@@ -71,81 +92,81 @@ function AddProduct() {
       }
       )
   }
-  // console.log(formData)
+  console.log(formData)
   return (
     <div className="add-product-form">
       <form onSubmit={handleSubmit}>
-        <label>SKU</label><br/>
+        <label>SKU</label><br />
         <input
           type="text"
           name="sku"
           onChange={handleChange}
           value={formData.sku}
-        /><br/>
+        /><br />
 
-        <label>Discount Percentage</label><br/>
+        <label>Discount Percentage</label><br />
         <input
           type="text"
           name="discount_percent"
           onChange={handleChange}
           value={formData.discount_percent}
-        /><br/>
+        /><br />
 
-        <label>Current Inventory</label><br/>
+        <label>Current Inventory</label><br />
         <input
           type="text"
           name="inventory_qty"
           onChange={handleChange}
           value={formData.inventory_qty}
-        /><br/>
+        /><br />
 
-        <label>Units</label><br/>
+        <label>Units</label><br />
         <input
           type="text"
           name="units"
           onChange={handleChange}
           value={formData.units}
-        /><br/>
+        /><br />
 
-        <label>Product Name</label><br/>
+        <label>Product Name</label><br />
         <input
           type="text"
           name="name"
           onChange={handleChange}
           value={formData.name}
-        /><br/>
+        /><br />
 
-        <label>Brand</label><br/>
+        <label>Brand</label><br />
         <input
           type="text"
           name="brand"
           onChange={handleChange}
           value={formData.brand}
-        /><br/>
+        /><br />
 
-        <label>Description</label><br/>
+        <label>Description</label><br />
         <input
           type="text"
           name="description"
           onChange={handleChange}
           value={formData.description}
-        /><br/>
+        /><br />
 
-        <label>Sell Price</label><br/>
+        <label>Sell Price</label><br />
         <input
           type="text"
           name="price"
           onChange={handleChange}
           value={formData.price}
-        /><br/>
+        /><br />
 
-        <label>Upload Image</label><br/>
+        <label>Upload Image</label><br />
         <input
           type="file"
           name="image_url"
           onChange={handleChange}
           // value={formData.image_url}
-        /><br/>
+        /><br />
 
         <button>submit</button>
 

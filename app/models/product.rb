@@ -16,4 +16,5 @@ class Product < ApplicationRecord
   validates :sku, :name, uniqueness: true
   validates :discount_percent, :price, numericality: { greater_than_or_equal_to: 0.0 }
   validates :price, numericality: { greater_than_or_equal_to: 10.0 }
+  # validates :product_image, presence: true
 end
