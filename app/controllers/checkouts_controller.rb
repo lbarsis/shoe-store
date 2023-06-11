@@ -10,4 +10,5 @@ class CheckoutsController < ApplicationController
     render json: {session_url: session.url}, status: 303
   end
 
+  
 end
