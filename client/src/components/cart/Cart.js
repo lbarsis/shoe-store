@@ -29,14 +29,14 @@ function Cart() {
         'Content-Type': 'application/json'
       }
     })
-    .then(r => {
-      if (r.ok) {
-        r.json().then(sessionUrl => window.location.replace(sessionUrl.session_url))
+    // .then(r => {
+    //   if (r.ok) {
+    //     r.json().then(sessionUrl => window.location.replace(sessionUrl.session_url))
 
-      }
-    })
-    // .then(r => r.json())
-    // .then(sessionUrl => window.location.replace(sessionUrl.session_url))
+    //   }
+    // })
+    .then(r => r.json())
+    .then(sessionUrl => window.location.replace(sessionUrl.session_url))
   }
 
   function clearCart() {
