@@ -105,6 +105,7 @@ function EditProduct() {
       }
       )
   }
+  // console.log(product.product_image)
   return (
     <div className="add-product-form">
       <form onSubmit={handleSubmit}>

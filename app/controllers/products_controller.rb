@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: @product
+    render json: @product, status: :ok
   end
 
   def create
@@ -29,7 +29,11 @@ class ProductsController < ApplicationController
       })
 
       product.product_image.attach(product_params[:image_url])
-      product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id, image_url: rails_blob_url(product.product_image))
+
+      #setup direct link for accessing aws link
+      key = product.product_image.key
+      
+      product.update!(default_price: stripe_product.default_price, stripe_product_id: stripe_product.id, image_url: "https://steppers-rails-product-images.s3.us-west-1.amazonaws.com/#{key}")
       render json: product, status: :created
     else
       render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
@@ -54,7 +58,11 @@ class ProductsController < ApplicationController
       )
       @product.product_image.purge
       @product.product_image.attach(product_params[:image_url])
-      @product.update!(default_price: new_price.id, image_url: rails_blob_url(@product.product_image))
+
+      #setup direct link for accessing aws link
+      key = @product.product_image.key
+
+      @product.update!(default_price: new_price.id, image_url: "https://steppers-rails-product-images.s3.us-west-1.amazonaws.com/#{key}")
       render json: @product, status: :ok
     else
       render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
