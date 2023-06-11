@@ -45,11 +45,11 @@ function EditProduct() {
 
   function handleChange(e) {
     if (e.target.name === "image_url") {
-      const myFileInput = document.querySelector('input[type="file"]');
-      const myFileName = myFileInput?.files[0]?.name;
+      // const myFileInput = document.querySelector('input[type="file"]');
+      // const myFileName = myFileInput?.files[0]?.name;
       setFormData({
         ...formData,
-        image_url: `/assets/images/home/${myFileName}`
+        image_url: e.target.files[0]
       })
     } else{
       setFormData({
@@ -62,11 +62,23 @@ function EditProduct() {
   function handleSubmit(e) {
     // const { sku, discount_percent, inventory_qty, units, name, description, price, image_url } = formData
 
+    const data = new FormData() // Create a new FormData object
+
+    // Append all the fields to the form data
+    for (const name in formData) {
+      if (name === "image_url") {
+        const myFileInput = document.querySelector('input[type="file"]');
+        const file = myFileInput?.files[0]; // Get the file object
+        data.append("product[" + name + "]", file) // Append the file object, not the name
+      } else {
+        data.append("product[" + name + "]", formData[name])
+      }
+    }
+
     e.preventDefault()
     fetch(`/products/${product.id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product: formData })
+      body: data
     })
       .then(r => {
         if (r.ok) {

@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
     end
   end
 
-   def update
+  def update
     if @product.update(product_params)
       new_price = Stripe::Price.create(
         unit_amount: product_params[:price].to_i, 
@@ -52,7 +52,9 @@ class ProductsController < ApplicationController
           sku: product_params[:sku]
         }
       )
-      @product.update!(default_price: new_price.id)
+      @product.product_image.purge
+      @product.product_image.attach(product_params[:image_url])
+      @product.update!(default_price: new_price.id, image_url: rails_blob_url(@product.product_image))
       render json: @product, status: :ok
     else
       render json: {errors: "Uh oh, something went wrong, try again."}, status: :unprocessable_entity
