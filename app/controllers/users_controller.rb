@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.is_admin = true
+    user.is_admin = false
     if user.save
       Stripe::Customer.create({
         name: "#{user_params[:fname]} #{user_params[:lname]}",
