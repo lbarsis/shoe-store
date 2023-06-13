@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: [:create, :index]
-  def index
-    users = User.all
-    render json: users
-  end
+  skip_before_action :authorize, only: [:create]
+  # def index
+  #   users = User.all
+  #   render json: users
+  # end
 
   def create
     user = User.new(user_params)
+    user.is_admin = false
     if user.save
       Stripe::Customer.create({
         name: "#{user_params[:fname]} #{user_params[:lname]}",
