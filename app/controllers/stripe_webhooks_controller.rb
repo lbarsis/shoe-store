@@ -1,6 +1,7 @@
 class StripeWebhooksController < ApplicationController
   # skip_before_action :verify_authenticity_token
 
+  skip_before_action :authorize, only: [:create]
   def create
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
@@ -8,6 +9,7 @@ class StripeWebhooksController < ApplicationController
 
     begin
       event = Stripe::Webhook.construct_event(
+        # payload, sig_header, Rails.application.credentials.stripe[:webhook]
         payload, sig_header, Rails.application.credentials.stripe[:webhook]
       )
     rescue JSON::ParserError => e
@@ -41,7 +43,8 @@ class StripeWebhooksController < ApplicationController
       # # create invoice
       # invoice = Stripe::Invoice.finalize_invoice(invoice.id)
 
-      order = Order.create!(total: total_amount, order_products: line_items)
+      order = @current_user.orders.create!(total: total_amount, order_products: line_items)
+      @current_user.cart.cart_products.destroy_all
 
     end
 
