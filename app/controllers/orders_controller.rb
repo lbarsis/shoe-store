@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    orders = Stripe::Invoice.search({query: "customer:\"#{@current_user.stripe_customer_id}\""})
+    orders = Order.all
     render json: orders
   end
 end
