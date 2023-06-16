@@ -29,17 +29,19 @@ class StripeWebhooksController < ApplicationController
       customer_id = session['customer']
 
       # Perform actions such as creating an invoice in your database
-      invoice = Stripe::Invoice.create({
-        customer: customer_id,
-        collection_method: 'send_invoice',
-        days_until_due: 30,
-        custom_fields: [
-          {name: 'Checkout Session ID', value: session['id']},
-        ],
-      })
+      # invoice = Stripe::Invoice.create({
+      #   customer: customer_id,
+      #   collection_method: 'send_invoice',
+      #   days_until_due: 30,
+      #   custom_fields: [
+      #     {name: 'Checkout Session ID', value: session['id']},
+      #   ],
+      # })
 
-      # create invoice
-      invoice = Stripe::Invoice.finalize_invoice(invoice.id)
+      # # create invoice
+      # invoice = Stripe::Invoice.finalize_invoice(invoice.id)
+
+      order = Order.create!(total: total_amount, order_products: line_items)
 
     end
 
