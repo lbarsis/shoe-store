@@ -21,8 +21,6 @@ function ProductCard({ product }) {
     }
   }, [cart, product.id]);
 
-  // console.log(product)
-
   function addItemToCart() {
     fetch('/cart_products', {
       method: 'POST',

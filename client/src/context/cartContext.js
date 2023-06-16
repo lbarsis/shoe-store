@@ -4,7 +4,7 @@ import { createContext, useState, useEffect } from "react";
 const CartContext = createContext(null)
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({ cart_products: [] });
   const [productQuantity, setProductQuantity] = useState(0);
 
   useEffect(() => {
@@ -21,7 +21,8 @@ const CartProvider = ({ children }) => {
 
   function handleAddCartItem(addedItem) {
     setCart((prevCart) => {
-      const existingProducts = prevCart.cart_products;
+      const existingProducts = Array.isArray(prevCart.cart_products) ? prevCart.cart_products : [];
+      console.log(existingProducts)
       const isProductInCart = existingProducts?.some(
         (cartProduct) => cartProduct.product.id === addedItem.product.id
       );
