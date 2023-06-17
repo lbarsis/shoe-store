@@ -1,60 +1,7 @@
-# class StripeWebhooksController < ApplicationController
-#   # skip_before_action :verify_authenticity_token
-#   skip_before_action :authorize, only: [:create]
-
-#   def create
-#     payload = request.body.read
-#     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-#     event = nil
-
-#     begin
-#       event = Stripe::Webhook.construct_event(
-#         # payload, sig_header, Rails.application.credentials.stripe[:webhook]
-#         payload, sig_header, Rails.application.credentials.stripe[:webhook]
-#       )
-#     rescue JSON::ParserError => e
-#       # Invalid payload
-#       render json: {message: e.message}, status: 400
-#       return
-#     rescue Stripe::SignatureVerificationError => e
-#       # Invalid signature
-#       render json: {message: e.message}, status: 400
-#       return
-#     end
-
-#     # Handle the checkout.session.completed event
-#     if event['type'] == 'checkout.session.completed'
-#       session = event['data']['object']
-
-#       line_items = session['line_items']['data']
-#       total_amount = line_items.sum { |item| item['amount_total'] }
-#       customer_id = session['customer']
-
-#       # Perform actions such as creating an invoice in your database
-#       # invoice = Stripe::Invoice.create({
-#       #   customer: customer_id,
-#       #   collection_method: 'send_invoice',
-#       #   days_until_due: 30,
-#       #   custom_fields: [
-#       #     {name: 'Checkout Session ID', value: session['id']},
-#       #   ],
-#       # })
-
-#       # # create invoice
-#       # invoice = Stripe::Invoice.finalize_invoice(invoice.id)
-
-#       user = User.find_by_stripe_customer_id(customer_id)
-#       order = user.orders.create!(total: total_amount, order_products: line_items)
-#       @current_user.cart.cart_products.destroy_all
-
-#     end
-
-#     render json: {message: 'Success'}, status: 200
-#   end
-# end
 class StripeWebhooksController < ApplicationController
+  # skip_before_action :verify_authenticity_token
   skip_before_action :authorize, only: [:create]
-  
+
   def create
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
@@ -62,6 +9,7 @@ class StripeWebhooksController < ApplicationController
 
     begin
       event = Stripe::Webhook.construct_event(
+        # payload, sig_header, Rails.application.credentials.stripe[:webhook]
         payload, sig_header, Rails.application.credentials.stripe[:webhook]
       )
     rescue JSON::ParserError => e
@@ -82,18 +30,12 @@ class StripeWebhooksController < ApplicationController
       total_amount = line_items.sum { |item| item['amount_total'] }
       customer_id = session['customer']
 
-      # Assuming you've stored the Stripe customer_id on your User model
-      user = User.find_by(stripe_customer_id: customer_id)
+      user = User.find_by_stripe_customer_id(customer_id)
+      order = user.orders.create!(total: total_amount, order_products: line_items)
+      @current_user.cart.cart_products.destroy_all
 
-      if user.present?
-        order = user.orders.create!(total: total_amount, order_products: line_items)
-        user.cart.cart_products.destroy_all
-        render json: {message: 'Success'}, status: 200
-      else
-        render json: {error: 'User not found'}, status: 404
-      end
-    else
-      render json: {message: 'Event type not handled'}, status: 200
     end
+
+    render json: {message: 'Success'}, status: 200
   end
 end

@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::API
-    # these macros and functions are used to authorize and authenticate users on login and controll what can be seen by a user
     include ActionController::Cookies
-    # include ActionController::RequestForgeryProtection
     wrap_parameters false
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     before_action :authorize
