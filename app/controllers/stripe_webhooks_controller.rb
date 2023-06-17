@@ -13,11 +13,11 @@ class StripeWebhooksController < ApplicationController
         )
     rescue JSON::ParserError => e
         # Invalid payload
-        render json: {message: "Invalid"}, status: 400
+        render json: {message: "Invalid"}, status: :bad_request
         return
     rescue Stripe::SignatureVerificationError => e
         # Invalid signature
-        render json: {message: "Invalid"}, status: 400
+        render json: {message: "Invalid"}, status: :bad_request
         return
     end
 
