@@ -13,11 +13,11 @@ class StripeWebhooksController < ApplicationController
         )
     rescue JSON::ParserError => e
         # Invalid payload
-        status 400
+        render json: {message: "Invalid"}, status: 400
         return
     rescue Stripe::SignatureVerificationError => e
         # Invalid signature
-        status 400
+        render json: {message: "Invalid"}, status: 400
         return
     end
 
@@ -30,7 +30,7 @@ class StripeWebhooksController < ApplicationController
         puts "Unhandled event type: #{event.type}"
     end
 
-    status 200
+    head :ok
   end
   
 end
