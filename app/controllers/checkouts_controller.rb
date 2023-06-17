@@ -3,7 +3,7 @@ class CheckoutsController < ApplicationController
   def checkout
     begin
       session = Stripe::Checkout::Session.create({
-        success_url: 'http://localhost:4000/',
+        success_url: 'https://steppers.onrender.com/',
         cancel_url: 'https://steppers.onrender.com/',
         customer: @current_user.stripe_customer_id,
         line_items: @current_user.cart_products.map { |cp| {price: cp.product.default_price, quantity: cp.quantity} },
