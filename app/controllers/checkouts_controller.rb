@@ -3,8 +3,8 @@ class CheckoutsController < ApplicationController
   def checkout
     begin
       session = Stripe::Checkout::Session.create({
-        success_url: 'https://steppers.onrender.com/success?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url: 'https://steppers.onrender.com/cancel?session_id={CHECKOUT_SESSION_ID}',
+        success_url: 'http://localhost:4000/',
+        cancel_url: 'https://steppers.onrender.com/',
         customer: @current_user.stripe_customer_id,
         line_items: @current_user.cart_products.map { |cp| {price: cp.product.default_price, quantity: cp.quantity} },
         mode: 'payment',
@@ -19,6 +19,4 @@ class CheckoutsController < ApplicationController
       render json: {error: "There was an error while trying to create a checkout session. Please try again."}, status: 500
     end
   end
-
-  
 end
