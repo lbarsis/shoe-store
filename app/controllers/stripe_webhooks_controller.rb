@@ -9,8 +9,8 @@ class StripeWebhooksController < ApplicationController
 
     begin
       event = Stripe::Webhook.construct_event(
-          # payload, sig_header, Rails.application.credentials.stripe[:webhook]
-          payload, sig_header, "whsec_45853b87fe1310cbafcd961b2094336822f8f5909583225de49f004ab9240e1a"
+          payload, sig_header, Rails.application.credentials.stripe[:webhook]
+          # payload, sig_header, "whsec_45853b87fe1310cbafcd961b2094336822f8f5909583225de49f004ab9240e1a"
       )
     rescue JSON::ParserError => e
       # Invalid payload

@@ -15,6 +15,8 @@ import Cart from './components/cart/Cart';
 import { CartProvider } from './context/cartContext';
 import AddProduct from './components/admin/AddProduct';
 import EditProduct from './components/admin/EditProduct';
+import Orders from './components/orders/Orders';
+import { OrdersProvider } from './context/ordersContext';
 // import Footer from './components/footer/Footer';
 
 
@@ -24,24 +26,26 @@ function App() {
     <div className="App">
       <ErrorsProvider>
         <UserProvider>
-          <CartProvider>
-            <ProductProvider>
-              <Navbar />
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<Signup />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route path='/shop' element={<Shop />} />
-                <Route path='/sale' element={<Sale />} />
-                <Route path='/add-product' element={<AddProduct />} />
-                <Route path='/edit-product/:productId' element={<EditProduct />} />
-                <Route path='/about' element={<About />} />
-                <Route path='/contact' element={<Contact />} />
-              </Routes>
-              {/* <Footer /> */}
-            </ProductProvider>
-          </CartProvider>
+          <OrdersProvider>
+            <CartProvider>
+              <ProductProvider>
+                <Navbar />
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signup' element={<Signup />} />
+                  <Route path='/cart' element={<Cart />} />
+                  <Route path='/shop' element={<Shop />} />
+                  <Route path='/orders' element={<Orders />} />
+                  <Route path='/add-product' element={<AddProduct />} />
+                  <Route path='/edit-product/:productId' element={<EditProduct />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/contact' element={<Contact />} />
+                </Routes>
+                {/* <Footer /> */}
+              </ProductProvider>
+            </CartProvider>
+          </OrdersProvider>
         </UserProvider>
       </ErrorsProvider>
     </div>

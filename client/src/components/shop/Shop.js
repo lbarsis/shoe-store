@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { ProductContext } from '../../context/productContext';
 import ProductCard from './ProductCard';
-import ProductSideScroll from './ProductSideScroll';
+// import ProductSideScroll from './ProductSideScroll';
 import '../../styles/ShopStyles/GridStyles.css'
 
 function Shop() {

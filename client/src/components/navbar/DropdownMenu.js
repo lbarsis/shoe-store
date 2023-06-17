@@ -44,6 +44,9 @@ function DropdownMenu() {
             <NavLink to='/cart' className="active-link">Cart</NavLink>
           </li>
           <li onClick={handleMenuToggle}>
+            <NavLink to='/orders' className="active-link">Orders</NavLink>
+          </li>
+          <li onClick={handleMenuToggle}>
             <button onClick={handleLogout} className='logout-button'>Logout</button>
           </li>
         </ul>
