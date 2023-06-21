@@ -1,7 +1,7 @@
 import React from 'react';
 
 function OrderItem({ order }) {
-  console.log(order)
+  // console.log(order)
   const displayOrderProduct = order.products?.map(product => {
     return (
       <div key={product.id}>
