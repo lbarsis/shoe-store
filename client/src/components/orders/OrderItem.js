@@ -2,13 +2,20 @@ import React from 'react';
 
 function OrderItem({ order }) {
   console.log(order)
-  const displayOrderProduct = order.order_products?.map(product => {
-    return <p key={product.id}>{product.quantity}</p>
+  const displayOrderProduct = order.products?.map(product => {
+    return (
+      <div key={product.id}>
+        <p>Name: {product.name}</p>
+        <p>Cost: ${product.price/100}</p>
+      </div>
+    )
   })
+
   return (
     <div>
-      {order.id}
+      Order Number: {order.id}
       {displayOrderProduct}
+      Order Total: ${order.total/100}
     </div>
   );
 }
