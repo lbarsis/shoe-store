@@ -15,7 +15,11 @@ function Banner() {
       </div>
       <div className="banner-content">
         <h1>Welcome to Steppers</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>
+          Why don't shoes ever admit they're tired?
+
+          Because they're afraid they'll get the boot!
+        </p>
         {/* <a href="#" className="button">Learn More</a> */}
         <NavLink to='/about' className='button'>Learn More</NavLink>
       </div>

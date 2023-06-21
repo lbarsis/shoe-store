@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :product_categories
+  resources :product_categories, only: [:create, :update, :destroy]
   resources :cart_products, only: [:create, :update, :destroy]
-  resources :carts
-  resources :order_products
-  resources :orders
+  resources :carts, only: [:show]
+  # resources :order_products, []
+  resources :orders, only: [:index]
   resources :products
-  resources :categories
-  resources :users
+  # resources :categories
+  resources :users, only: [:create, :show]
 
   get '/carts/my-cart', to: 'carts#my_cart'
   # post '/cart_products', to: 'cart_products#add_to_cart'
