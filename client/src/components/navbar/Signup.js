@@ -14,7 +14,8 @@ function Signup() {
     lname: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    is_admin: true
   })
 
   function handleChange(e) {
