@@ -3,11 +3,13 @@ import { CartContext } from '../../context/cartContext';
 import { ErrorsContext } from '../../context/errorsContext';
 import { ProductContext } from '../../context/productContext';
 import { Link } from 'react-router-dom'
+import { UserContext } from '../../context/userContext';
 
 function ProductCard({ product }) {
-  const { errors, setErrors } = useContext(ErrorsContext)
+  const { setErrors } = useContext(ErrorsContext)
   const { handleDeleteProduct } = useContext(ProductContext)
-  const { cart, handleAddCartItem, handleUpdateCartItem, handleRemoveCartItem } = useContext(CartContext);
+  const { user } = useContext(UserContext)
+  const { cart, handleAddCartItem, handleUpdateCartItem } = useContext(CartContext);
   const [productQuantity, setProductQuantity] = useState(0);
 
   useEffect(() => {
@@ -107,8 +109,8 @@ function ProductCard({ product }) {
           <button onClick={subtractItemFromCart} className="qty-adjust-button minus">-</button>
           <p className="qty-count">{productQuantity}</p>
           <button onClick={addItemToCart} className="qty-adjust-button plus">+</button>
-          <Link to={`/edit-product/${product.id}`} className='edit-button'>Edit Product</Link>
-          <button onClick={deleteProduct} className='delete-button'>Delete</button>
+          { user?.is_admin ? <Link to={`/edit-product/${product.id}`} className='edit-button'>Edit Product</Link> : null }
+          { user?.is_admin ? <button onClick={deleteProduct} className='delete-button'>Delete</button> : null }
         </div>
       </div>
     </div>
